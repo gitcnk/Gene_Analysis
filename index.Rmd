@@ -1,0 +1,21 @@
+
+--- 
+title: "Main Template"
+author: "CK "
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+description: |
+  Template for Notes
+---
+
+# Introduction
+Intro
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+# Set up packages and data 
+
+
+# mydata <- read.csv('')
+
+```
