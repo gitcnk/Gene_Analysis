@@ -12,6 +12,15 @@ description: |
 # Introduction
 My notes on gene expression analysis.
 
+Some useful websites:
+
+
+1. https://www.ncbi.nlm.nih.gov/geo/
+
+
+
+
+
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 # Set up packages and data 
 
