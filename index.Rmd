@@ -1,6 +1,6 @@
 
 --- 
-title: "Gene Expression Aanalysis"
+title: "Gene Analysis"
 author: "CK "
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
@@ -10,7 +10,7 @@ description: |
 ---
 
 # Introduction
-My notes on gene expression analsis.
+My notes on gene expression analysis.
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 # Set up packages and data 
