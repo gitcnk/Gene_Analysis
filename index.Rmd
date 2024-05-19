@@ -1,6 +1,6 @@
 
 --- 
-title: "Gene Analysis"
+title: "Template for Notes"
 author: "CK "
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
@@ -10,12 +10,10 @@ description: |
 ---
 
 # Introduction
-My notes on gene expression analysis.
-
-Some useful websites:
+My templates for notes 
 
 
-1. https://www.ncbi.nlm.nih.gov/geo/
+
 
 
 
