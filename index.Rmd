@@ -1,7 +1,7 @@
 ---
 title: "Statistics: A Critical Look"
 #author: "CK"
-output: bookdown::gitbook
+documentclass: book
 site: bookdown::bookdown_site
 
 ---

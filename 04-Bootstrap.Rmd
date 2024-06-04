@@ -153,23 +153,26 @@ We'll never know     0.88                            Very Difficult to find     
 
 One thing to stress here is that, we would never know the true correlation or its variance.  However, the above table provides a better understanding of what it might be.  It tells us that the sample correlation is 0.88 but the uncertainly is on average, about 0.035 units.  Hopefully, this example will convince you to believe the utility of the Bootstrap method as technique to find the standard error of any statistic.  Simply create the bootstrap sampling distribution and find its spread (standard deviation).  To drive this point, let us look at another example.
 
-\
 
-```{example}
-This was a study on in-hospital deaths from myocardial infarction with ST elevation (STEMI) which was done in Oregon.  Summary stats of the study is as follows:
+
+
+**Example:**
+
+This was a study on in-hospital deaths from mayocardial infarction with ST elevation (STEMI) which was done in Oregon.  Summary stats of the study is as follows:
+
 
 - 9  hospitals in the Providence Health system in Oregon.
 - Study period : from 2002 to 2003.
-- 913  STEMI patients treated, of whom 105 died (in-hospital deaths) from myocardial infarction with ST elevation (STEMI). 
-- Each patient was assigned a Thrombolysis in Myocardial Infarction Risk Scores
+- 913  STEMI patients treated, of whom 105 died (in-hospital deaths) from mayocardial infarction with ST elevation (STEMI). 
+- Each patient was assigned a Thrombosis in Mayocardial Infarction Risk Scores
 
-```
+
 
 
 The following table contains data grouped by risk score.  In addition, information about the national mortality rate for each risk category is also given.
 
 
-\
+
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 
@@ -378,7 +381,7 @@ Here are few other things to keep in mind:
 
 - Theory behind the bootstrap method is complex.  So it is hard to convince a reasonable person that this method actually works and not some voodoo science. :)
 
-\
+
 
 
 

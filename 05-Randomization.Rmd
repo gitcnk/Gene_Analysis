@@ -7,20 +7,19 @@ In Chapter 4, we looked at a new method (The Bootstrap) to find standard errors 
 ## Alternative to the Two Sample t-test
 
 
-```{example}
+**Example**
 
-A sample of 16 healthy women aged 18 - 40 were randomly assigned to drink 24 ounces of either diet cola or water. Their urine was collected for three hours after ingestion of the beverage and calcium excretion (in mg.) was measured . 
+- A sample of 16 healthy women aged 18 - 40 were randomly assigned to drink 24 ounces of either diet cola or water. Their urine was collected for three hours after ingestion of the beverage and calcium excretion (in mg.) was measured . 
 
-The researchers were investigating whether people who drink diet cola 
+- The researchers were investigating whether people who drink diet cola 
 tend to loose more calcium out of their system, which would increase the amount of calcium in the urine for diet cola drinkers.
 
 
-Ref: Larson, Amin, Olsen, and Poth, Effect of Diet Cola on Urine Calcium Excretion, Endocrine Reviews, 31[3]: June 2010. 
+- Ref: Larson, Amin, Olsen, and Poth, Effect of Diet Cola on Urine Calcium Excretion, Endocrine Reviews, 31[3]: June 2010. 
     
-```
 
 
-\
+
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 mydata <- read.csv(file = 'https://raw.githubusercontent.com/gitcnk/Data/master/ColaCalcium.csv')
@@ -30,9 +29,9 @@ mydata <- read.csv(file = 'https://raw.githubusercontent.com/gitcnk/Data/master/
 
 
 
-Here are the summary statistics for the cola experiment.
+Here are the summary statistics for the cola experiment:
 
-\
+
 
 
                          Cola                     Water 
@@ -166,8 +165,6 @@ The p-value from the t-test is 0.007, which is close to the permutation test p-v
 
 ## Application to Categorical Data
 
-```{example}
-```
 
 This example is from a case in the U.S. District Court for the Southern District of New York (Waisome v. Port Authority of New York & New Jersey).  In 1991, Felix Waisome and a group of  plaintiffs sued the port authority of New York claiming racial bias against Black officers in the promotion process, because, according to him, the port authority officials were passing black officers at a lower rate compared to the white officers.
 
@@ -224,9 +221,7 @@ As you can see in the above plot, IF the police department did not use race as a
 
 ## Application to Linear Regression
 
-```{example}
 
-```
 The final example of this chapter illustrates the flexibility of permutation tests.  In this example, we will see how to apply this technique to test hypotheses about linear models.  In particular, we will learn how to test a hypothesis about the slope coefficient in a simple linear regression model.  The dataset we use here contain information about pizzas.  You can access the dataset using the following command:
 
 ```{r eval=FALSE, message=FALSE, warning=FALSE, include=TRUE}
@@ -335,7 +330,7 @@ As we expected, under the premise of no correlation with fat and calories (null 
 ## Things to ponder
 
 ```{}
-Can we use permutation tests in any situation?
+1. Can we use permutation tests in any situation?
 ```
 
 **Answer**
@@ -344,7 +339,7 @@ No.  There are many cases where we can not use permutation tests.  For example, 
 
 
 ```{}
-Are the permutation tests resistant to outliers?
+2. Are the permutation tests resistant to outliers?
 ```
 
 **Answer**

@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 7 Chi-Squared Test and its Variants | Statistics: A Critical Look</title>
+  <meta name="description" content="Chapter 7 Chi-Squared Test and its Variants | Statistics: A Critical Look" />
+  <meta name="generator" content="bookdown 0.38 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 7 Chi-Squared Test and its Variants | Statistics: A Critical Look" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 7 Chi-Squared Test and its Variants | Statistics: A Critical Look" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="p-values-jelly-beans-and-mosquitoes.html"/>
+<link rel="next" href="the-logistic-regression-model.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.1/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Statistics: A Critical Look</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="some-preliminary-questions.html"><a href="some-preliminary-questions.html"><i class="fa fa-check"></i><b>1</b> Some Preliminary Questions</a></li>
+<li class="chapter" data-level="2" data-path="sampling-distributions.html"><a href="sampling-distributions.html"><i class="fa fa-check"></i><b>2</b> Sampling Distributions</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="sampling-distributions.html"><a href="sampling-distributions.html#how-to-construct-a-sampling-distribution"><i class="fa fa-check"></i><b>2.1</b> How to Construct a Sampling Distribution?</a></li>
+<li class="chapter" data-level="2.2" data-path="sampling-distributions.html"><a href="sampling-distributions.html#some-questions-to-ponder"><i class="fa fa-check"></i><b>2.2</b> Some Questions to Ponder</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="the-infamous-n-30-rule.html"><a href="the-infamous-n-30-rule.html"><i class="fa fa-check"></i><b>3</b> The Infamous ‘n &gt; 30 rule’</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="the-infamous-n-30-rule.html"><a href="the-infamous-n-30-rule.html#central-limit-theorem"><i class="fa fa-check"></i><b>3.1</b> Central Limit Theorem</a></li>
+<li class="chapter" data-level="3.2" data-path="the-infamous-n-30-rule.html"><a href="the-infamous-n-30-rule.html#explorations-with-real-data"><i class="fa fa-check"></i><b>3.2</b> Explorations with Real Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="the-infamous-n-30-rule.html"><a href="the-infamous-n-30-rule.html#nba-player-salaries"><i class="fa fa-check"></i>NBA Player Salaries</a></li>
+<li class="chapter" data-level="" data-path="the-infamous-n-30-rule.html"><a href="the-infamous-n-30-rule.html#undergraduates-in-us-colleges-and-universities"><i class="fa fa-check"></i>Undergraduates in US Colleges and Universities</a></li>
+<li class="chapter" data-level="" data-path="the-infamous-n-30-rule.html"><a href="the-infamous-n-30-rule.html#departure-delays-in-lagauadia-airport"><i class="fa fa-check"></i>Departure Delays in LaGauadia Airport</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="the-infamous-n-30-rule.html"><a href="the-infamous-n-30-rule.html#some-questions-to-ponder-1"><i class="fa fa-check"></i><b>3.3</b> Some Questions to Ponder</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="the-bootstrap-method.html"><a href="the-bootstrap-method.html"><i class="fa fa-check"></i><b>4</b> The Bootstrap Method</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="the-bootstrap-method.html"><a href="the-bootstrap-method.html#bootstrap-sampling-distribution"><i class="fa fa-check"></i><b>4.1</b> Bootstrap Sampling Distribution</a></li>
+<li class="chapter" data-level="4.2" data-path="the-bootstrap-method.html"><a href="the-bootstrap-method.html#bootstrap-confidence-intervals"><i class="fa fa-check"></i><b>4.2</b> Bootstrap Confidence Intervals</a>
+<ul>
+<li class="chapter" data-level="" data-path="the-bootstrap-method.html"><a href="the-bootstrap-method.html#bootstrap-se-plug-in-method"><i class="fa fa-check"></i>Bootstrap SE Plug-in Method</a></li>
+<li class="chapter" data-level="" data-path="the-bootstrap-method.html"><a href="the-bootstrap-method.html#bootstrap-percentile-method"><i class="fa fa-check"></i>Bootstrap Percentile Method</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="the-bootstrap-method.html"><a href="the-bootstrap-method.html#things-to-ponder"><i class="fa fa-check"></i><b>4.3</b> Things to Ponder</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="permutation-randomization-tests.html"><a href="permutation-randomization-tests.html"><i class="fa fa-check"></i><b>5</b> Permutation (Randomization) Tests</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="permutation-randomization-tests.html"><a href="permutation-randomization-tests.html#alternative-to-the-two-sample-t-test"><i class="fa fa-check"></i><b>5.1</b> Alternative to the Two Sample t-test</a></li>
+<li class="chapter" data-level="5.2" data-path="permutation-randomization-tests.html"><a href="permutation-randomization-tests.html#application-to-categorical-data"><i class="fa fa-check"></i><b>5.2</b> Application to Categorical Data</a></li>
+<li class="chapter" data-level="5.3" data-path="permutation-randomization-tests.html"><a href="permutation-randomization-tests.html#application-to-linear-regression"><i class="fa fa-check"></i><b>5.3</b> Application to Linear Regression</a>
+<ul>
+<li class="chapter" data-level="" data-path="permutation-randomization-tests.html"><a href="permutation-randomization-tests.html#summary"><i class="fa fa-check"></i>Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="permutation-randomization-tests.html"><a href="permutation-randomization-tests.html#things-to-ponder-1"><i class="fa fa-check"></i><b>5.4</b> Things to ponder</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="p-values-jelly-beans-and-mosquitoes.html"><a href="p-values-jelly-beans-and-mosquitoes.html"><i class="fa fa-check"></i><b>6</b> P-values, Jelly-Beans, and Mosquitoes</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="p-values-jelly-beans-and-mosquitoes.html"><a href="p-values-jelly-beans-and-mosquitoes.html#what-is-a-p-value"><i class="fa fa-check"></i><b>6.1</b> What is a p-value?</a></li>
+<li class="chapter" data-level="6.2" data-path="p-values-jelly-beans-and-mosquitoes.html"><a href="p-values-jelly-beans-and-mosquitoes.html#p-values-and-large-samples."><i class="fa fa-check"></i><b>6.2</b> P-values and Large Samples.</a></li>
+<li class="chapter" data-level="6.3" data-path="p-values-jelly-beans-and-mosquitoes.html"><a href="p-values-jelly-beans-and-mosquitoes.html#slicing-and-dicing-the-data"><i class="fa fa-check"></i><b>6.3</b> Slicing and Dicing the Data</a></li>
+<li class="chapter" data-level="6.4" data-path="p-values-jelly-beans-and-mosquitoes.html"><a href="p-values-jelly-beans-and-mosquitoes.html#a-question-to-ponder"><i class="fa fa-check"></i><b>6.4</b> A Question to Ponder</a></li>
+<li class="chapter" data-level="" data-path="p-values-jelly-beans-and-mosquitoes.html"><a href="p-values-jelly-beans-and-mosquitoes.html#summary-1"><i class="fa fa-check"></i>Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="chi-squared-test-and-its-variants.html"><a href="chi-squared-test-and-its-variants.html"><i class="fa fa-check"></i><b>7</b> Chi-Squared Test and its Variants</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="chi-squared-test-and-its-variants.html"><a href="chi-squared-test-and-its-variants.html#goodness-of-fit-test"><i class="fa fa-check"></i><b>7.1</b> Goodness of Fit Test</a></li>
+<li class="chapter" data-level="7.2" data-path="chi-squared-test-and-its-variants.html"><a href="chi-squared-test-and-its-variants.html#test-of-homogeneity"><i class="fa fa-check"></i><b>7.2</b> Test of Homogeneity</a></li>
+<li class="chapter" data-level="7.3" data-path="chi-squared-test-and-its-variants.html"><a href="chi-squared-test-and-its-variants.html#test-of-independence"><i class="fa fa-check"></i><b>7.3</b> Test of Independence</a></li>
+<li class="chapter" data-level="" data-path="chi-squared-test-and-its-variants.html"><a href="chi-squared-test-and-its-variants.html#summary-3"><i class="fa fa-check"></i>Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="the-logistic-regression-model.html"><a href="the-logistic-regression-model.html"><i class="fa fa-check"></i><b>8</b> The Logistic Regression Model</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="the-logistic-regression-model.html"><a href="the-logistic-regression-model.html#the-failure-of-the-linear-model"><i class="fa fa-check"></i><b>8.1</b> The Failure of the Linear Model</a>
+<ul>
+<li class="chapter" data-level="" data-path="the-logistic-regression-model.html"><a href="the-logistic-regression-model.html#plot-with-estimates-of-probability-local-averages"><i class="fa fa-check"></i>Plot with Estimates of Probability (local averages)</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="the-logistic-regression-model.html"><a href="the-logistic-regression-model.html#construction-of-a-new-model"><i class="fa fa-check"></i><b>8.2</b> Construction of a New Model</a></li>
+<li class="chapter" data-level="8.3" data-path="the-logistic-regression-model.html"><a href="the-logistic-regression-model.html#fitting-a-logistic-model"><i class="fa fa-check"></i><b>8.3</b> Fitting a Logistic Model</a>
+<ul>
+<li class="chapter" data-level="" data-path="the-logistic-regression-model.html"><a href="the-logistic-regression-model.html#maximum-likelihood-estimation"><i class="fa fa-check"></i>Maximum Likelihood Estimation</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Hamilton College</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistics: A Critical Look</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="chi-squared-test-and-its-variants" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">Chapter 7</span> Chi-Squared Test and its Variants<a href="chi-squared-test-and-its-variants.html#chi-squared-test-and-its-variants" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>The Chi-Squared test is one of most popular hypothesis tests in applied statistics. Researchers from many disciplines use this test in their day to day work. It is easy to use and learn. Let’s dive in.</p>
+<p>The Chi-Squared test comes in three flavors.</p>
+<ul>
+<li>Goodness of Fit Test</li>
+<li>Test of Homogeneity</li>
+<li>Test of Independence</li>
+</ul>
+<div id="goodness-of-fit-test" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Goodness of Fit Test<a href="chi-squared-test-and-its-variants.html#goodness-of-fit-test" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>As the name implies, this test checks whether a given set of data conforms to (fit) a prespecified distribution. Consider the following example:</p>
+<p><strong>Example:</strong></p>
+<p>The following data is from a survey of Hamilton students conducted in 2016. The counts are survey respondents in each class year.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="chi-squared-test-and-its-variants.html#cb36-1" aria-hidden="true" tabindex="-1"></a>class_frq <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Freshman&quot;</span> <span class="ot">=</span> <span class="dv">20</span>,</span>
+<span id="cb36-2"><a href="chi-squared-test-and-its-variants.html#cb36-2" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;Sophomore&quot;</span> <span class="ot">=</span> <span class="dv">32</span>,</span>
+<span id="cb36-3"><a href="chi-squared-test-and-its-variants.html#cb36-3" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;Junior&quot;</span> <span class="ot">=</span> <span class="dv">16</span>,</span>
+<span id="cb36-4"><a href="chi-squared-test-and-its-variants.html#cb36-4" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;Senior&quot;</span> <span class="ot">=</span> <span class="dv">27</span>)</span>
+<span id="cb36-5"><a href="chi-squared-test-and-its-variants.html#cb36-5" aria-hidden="true" tabindex="-1"></a>                </span>
+<span id="cb36-6"><a href="chi-squared-test-and-its-variants.html#cb36-6" aria-hidden="true" tabindex="-1"></a>class_frq</span></code></pre></div>
+<pre><code>##  Freshman Sophomore    Junior    Senior 
+##        20        32        16        27</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="chi-squared-test-and-its-variants.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pie</span>(class_frq)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-63-1.png" width="672" /></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Class Year</th>
+<th align="left">Count</th>
+<th align="left">Percent</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Freshman</td>
+<td align="left">20</td>
+<td align="left">21.1%</td>
+</tr>
+<tr class="even">
+<td align="left">Sophomore</td>
+<td align="left">32</td>
+<td align="left">33.7%</td>
+</tr>
+<tr class="odd">
+<td align="left">Junior</td>
+<td align="left">16</td>
+<td align="left">16.8%</td>
+</tr>
+<tr class="even">
+<td align="left">Senior</td>
+<td align="left">27</td>
+<td align="left">28.4%</td>
+</tr>
+</tbody>
+</table>
+<p><br />
+</p>
+<p>Now, you might wonder, hmmmmm…, did we actually over sample two class years (seniors and sophomores) and under-sampled the other two classes or could this be due to chance variation? We can try to answer this by using the one sample proportions test on each group. That is we can conduct four hypothesis tests as follows.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Test 1</th>
+<th align="left">Test 2</th>
+<th align="left">Test 3</th>
+<th align="left">Test 4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\(H_0: p_{freshman} = 0.25\)</span></td>
+<td align="left"><span class="math inline">\(H_0: p_{sophomore} = 0.25\)</span></td>
+<td align="left"><span class="math inline">\(H_0: p_{junior} = 0.25\)</span></td>
+<td align="left"><span class="math inline">\(H_0: p_{senior} = 0.25\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(H_1: p_{freshman} \neq 0.25\)</span></td>
+<td align="left"><span class="math inline">\(H_1: p_{sophomore} \neq 0.25\)</span></td>
+<td align="left"><span class="math inline">\(H_1: p_{junior} \neq 0.25\)</span></td>
+<td align="left"><span class="math inline">\(H_1: p_{senior} \neq 0.25\)</span></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><strong><span style="color: red;">A question:</span></strong> Can you think why the above approach is not very good?</p>
+<hr />
+<p>I’ll let you ponder on this question. For the time being, let’s agree to not to use the above approach. So, what else can be done? This where the Chi squared <strong>goodness of fit test</strong> comes in to play. What we wanted to test is whether the student body in our college is evenly distributed between the 4 class years. The Chi squared test approach this issue in a slightly different way.</p>
+<p><span class="math inline">\(H_0:\)</span></p>
+<pre><code>    Proportion of freshmen = 1/4
+    
+    Proportion of sophomores = 1/4
+    
+    Proportion of juniors = 1/4
+    
+    Proportion of seniors = 1/4</code></pre>
+<p><span class="math inline">\(H_1:\)</span></p>
+<pre><code>    The students are not evenly distributed between class years.</code></pre>
+<p>So, <strong>IF</strong> the null hypothesis were true, out of the 95 students we’d expect about 95/4 (on average) falls into each class year give or take (with some random variation). For example, in our sample, we’d <strong>EXPECT</strong> about 23 (95/4) students to have come from each class year. We can then compare these expected counts with the actual <strong>OBSERVED</strong> counts. Consider the following table:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Class Year</th>
+<th align="left">Observed Count</th>
+<th align="left">Expected Count</th>
+<th align="left">Difference</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Freshman</td>
+<td align="left">20</td>
+<td align="left">23.75</td>
+<td align="left">-3.75</td>
+</tr>
+<tr class="even">
+<td align="left">Sophomore</td>
+<td align="left">32</td>
+<td align="left">23.75</td>
+<td align="left">8.25</td>
+</tr>
+<tr class="odd">
+<td align="left">Junior</td>
+<td align="left">16</td>
+<td align="left">23.75</td>
+<td align="left">-7.75</td>
+</tr>
+<tr class="even">
+<td align="left">Senior</td>
+<td align="left">27</td>
+<td align="left">23.75</td>
+<td align="left">3.25</td>
+</tr>
+</tbody>
+</table>
+<p>The Chi-squared test aggregate these differences in to a single number. We call it the Chi-squared test statistic. Here’s how it aggregates:</p>
+<p><span class="math display">\[ Chi-squared\ Test\ Statistic:\ X^2 = \sum_{sum\ over\ groups} \frac{(Observed - Expected)^2}{Expected} \]</span></p>
+<p><br />
+</p>
+<p>Now you may have couple of questions:</p>
+<p><strong><span style="color: red;">Question 1:</span></strong> Why do we square the difference between observed and expected counts?</p>
+<p>If you simply add the differences the positive differences and negative differences will cancel one another. As a result we’ll end up with a zero as the final answer. That is not helpful. We need a way to aggregate the differences in a meaningful way. By squaring and adding them up we can overcome the cancellation issue. Also, it acts as a weight function. That is, smaller differences contribute less and larger differences contribute more to the final outcome. So you can think of the test statistic as a <em>weighted average</em> of squared deviations.</p>
+<p><br />
+</p>
+<p><strong><span style="color: red;">Question 2:</span></strong> Why do we divide by the expected count?</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Case 1</th>
+<th align="left">Case 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Observed = 10</td>
+<td align="left">Observed = 100</td>
+</tr>
+<tr class="even">
+<td align="left">Expected = 5</td>
+<td align="left">Expected = 95</td>
+</tr>
+</tbody>
+</table>
+<p>In both cases, the difference is 5. But we see that 5 is a substantial deviation for Case 1 than it is for Case 2. A better approach is to look at the <strong>relative</strong> difference. That is to calculate the difference between the observed and expected counts relative to what we’d expect, hence we divide by the expected count.</p>
+<p>There is another answer to the above questions using the Poisson distribution. But we haven’t studied the Poisson distribution in our intro courses so I will not get into that.</p>
+<p>Now let’s see how to do this in R.</p>
+<p><strong>Command to run the test</strong></p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="chi-squared-test-and-its-variants.html#cb41-1" aria-hidden="true" tabindex="-1"></a>my_chisq_test <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(<span class="at">x =</span> class_frq, <span class="at">p =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>,<span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>,<span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>,<span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>))</span>
+<span id="cb41-2"><a href="chi-squared-test-and-its-variants.html#cb41-2" aria-hidden="true" tabindex="-1"></a>my_chisq_test</span></code></pre></div>
+<pre><code>## 
+##  Chi-squared test for given probabilities
+## 
+## data:  class_frq
+## X-squared = 6.4316, df = 3, p-value = 0.0924</code></pre>
+<p>As you can see, you’ll get the Chi-squared test statistic and the corresponding p-value. How did they come up with the p-value? To answer this question, we need to go all the way back to 1900. Karl Pearson was the man who invented this method in a paper in 1900. He proved that, <strong>IF</strong> the null hypothesis were true, the sampling distribution of the above test statistic follows a Chi-squared distribution. So what is this Chi-squared distribution?</p>
+<p>The Chi-squared distribution is used to model <strong>positive</strong> values. The smallest value you can have is zero. It is a skewed distribution (mostly). The shape (and skewness) is governed by a parameter called the ‘degree of freedom’ parameter’ ( denoted by <span class="math inline">\(k\)</span> ). It is a positive integer. For smaller <span class="math inline">\(k\)</span> you see a lot of skewness and for large <span class="math inline">\(k\)</span> the distribution becomes more symmetric. The mean of the distribution is equal to <span class="math inline">\(k\)</span> and the variance is <span class="math inline">\(2k\)</span>. Here are two examples:</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-65-1.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-65-2.png" width="672" /></p>
+<p>Now let’s look back at our problem. We found that the corresponding Chi-squared value for the class year data is 6.43. Is this value a likely one or an unlikely one? To answer that question, we need to compare this value against a Chi-squared distribution. But, which distribution are we going to use? We need to know the <span class="math inline">\(k\)</span> (degrees of freedom) parameter corresponds to our test statistic. In his paper in 1900 Karl Pearson figured out that the correct value of <span class="math inline">\(k\)</span> is related to the number of groups that we are comparing. He proved that <span class="math inline">\(k = ( \# \ of \ groups \ - 1 )\)</span>. Therefore, in our case we need to work with a Chi-squared distribution with <span class="math inline">\(k=3\)</span>. The following plot show the correct distribution with the vertical line indicating the observed value of the Chi-squared test statistics (6.43) for the class year data. Do you think that this value is a likely value under the null hypothesis or is it unlikely?</p>
+<p>The observed value of 6.43 is somewhat in the unlikely region. We can calculate exactly the probability of observing 6.43 (or more) and that is nothing but the p-value. The p-value = 0.09. It is kind of ‘small’. Perhaps not that small to be considered as unlikely. This is where we need to dig deeper into the data. The following commands will help us put things in perspective before we jump in to make a decision about the p-value.</p>
+<p><strong>Display the observed counts</strong></p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="chi-squared-test-and-its-variants.html#cb43-1" aria-hidden="true" tabindex="-1"></a>my_chisq_test<span class="sc">$</span>observed</span></code></pre></div>
+<pre><code>##  Freshman Sophomore    Junior    Senior 
+##        20        32        16        27</code></pre>
+<p><strong>Display the expected counts</strong></p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="chi-squared-test-and-its-variants.html#cb45-1" aria-hidden="true" tabindex="-1"></a>my_chisq_test<span class="sc">$</span>expected</span></code></pre></div>
+<pre><code>##  Freshman Sophomore    Junior    Senior 
+##     23.75     23.75     23.75     23.75</code></pre>
+<p><strong>Display the residuals (standardized, i.e. z-score)</strong></p>
+<pre><code>##   Freshman  Sophomore     Junior     Senior 
+## -0.7694838  1.6928643 -1.5902664  0.6668859</code></pre>
+<p>We can make use of the residuals to help us reveal more about the data and the corresponding p-value. First we need to define what these residuals are.</p>
+<p><span class="math display">\[ residuals \ = \ \frac{Observed - Expected}{\sqrt{Expected}} \]</span></p>
+<p>You can think of them as Z-scores. For example, for sophomores, the observed count is 1.69 standard deviations <strong>above</strong> the expected count. For juniors, the observed count is 1.59 standard deviations <strong>below</strong> the expected count. Any residual value larger than 2 (roughly) is considered ‘unusual’. In this case non of the residuals are above 2, but they give us an important clue about the nature of the data. Consider the following dialog:</p>
+<p><strong>You</strong> Can you explain why the residual value is somewhat high (1.69) for sophomores?</p>
+<p><strong>Researcher:</strong> Given the context, I think they may have over-sampled the sophomores which explains the large <span style="color: red;">positive</span> residual.</p>
+<p><strong>You:</strong> I still don’t get it. Why would they over-sample?</p>
+<p><strong>Researcher:</strong> Well, this course is mainly taken by students who have had some prior Statistics background (College Intro Stats or AP stats). So typically we tend to have more sophomores and juniors in the class. Since the survey was done by the students in the class, they tend to interview members of their own class year hence the over-representation.</p>
+<p><strong>You:</strong> OK, but what about the juniors? Why do they have an under-representation? The residual for juniors is <span style="color: red;">negative</span> (-1.59) which indicates that there is an under-representation. But your argument above suggests that they must over-sample the juniors too because the class is generally taken by more sophomores and juniors. I’m confused.</p>
+<p><strong>Researcher:</strong> That is a good point. But in this case, we have a different explanation. You see, in our college, a considerable number of juniors tend to study abroad. As a result we always have an under-representation of the juniors <span style="color: red;">on-campus</span> in each year. Therefore, any on-campus survey would have a low representation of juniors.</p>
+<p><strong>You:</strong> I see, that makes sense. But now I have a different question. Didn’t we assume (in the null hypothesis) that the class years are evenly distributed? According to what you just said, shouldn’t we be testing a different hypothesis which matches the reality of on-campus class distribution?</p>
+<p><strong>Researcher:</strong> You are absolutely right. We should use the correct expected percentages in our null hypothesis. Let’s redo the analysis together.</p>
+<hr />
+<p>The correct expected on-campus class percentages are slightly different from 25%. The following table shows the enrollment numbers at the beginning of that academic year (source: Hamilton College Registrar’s office).</p>
+<table>
+<thead>
+<tr class="header">
+<th>Class Year</th>
+<th>Percentage</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Freshman</td>
+<td>25.9%</td>
+</tr>
+<tr class="even">
+<td>Sophomore</td>
+<td>27.8%</td>
+</tr>
+<tr class="odd">
+<td>Junior</td>
+<td>19.6%</td>
+</tr>
+<tr class="even">
+<td>Senior</td>
+<td>26.7%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Perform the test again and examine the residuals</strong></p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="chi-squared-test-and-its-variants.html#cb48-1" aria-hidden="true" tabindex="-1"></a>my_chisq_test2 <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(<span class="at">x =</span> class_frq, <span class="at">p =</span> <span class="fu">c</span>(.<span class="dv">259</span>, .<span class="dv">278</span>, .<span class="dv">196</span>, .<span class="dv">267</span>))</span>
+<span id="cb48-2"><a href="chi-squared-test-and-its-variants.html#cb48-2" aria-hidden="true" tabindex="-1"></a>my_chisq_test2</span></code></pre></div>
+<pre><code>## 
+##  Chi-squared test for given probabilities
+## 
+## data:  class_frq
+## X-squared = 2.5191, df = 3, p-value = 0.4718</code></pre>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="chi-squared-test-and-its-variants.html#cb50-1" aria-hidden="true" tabindex="-1"></a>my_chisq_test2<span class="sc">$</span>residuals</span></code></pre></div>
+<pre><code>##   Freshman  Sophomore     Junior     Senior 
+## -0.9283633  1.0877463 -0.6071716  0.3246387</code></pre>
+<p>As you can see, the Chi-squared value is much smaller (2.52 compared to 6.43 earlier) hence the p-value is much larger ( p- val = 0.43 vs. p-val = 0.09 earlier). The following plot shows the observed Ch-squared value is quite likely under the null hypothesis.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-70-1.png" width="672" /></p>
+<p>So what is our conclusion? We can say “there is not enough evidence to say that the observed counts differ significantly from we’d reasonably expect.”. In other words, the students have done a good job in getting a representative sample from the college. The apparent disparities in the observed counts is simply a result of chance variation.</p>
+<p>Let’s look at another example.</p>
+<p><strong>Example:</strong></p>
+<p>The main issue we are investigating here is racial disparity is jury selection in Alameda county in northern California. In 2010, the American Civil Liberties Union (ACLU) found large disparities in the racial makeup of the selected jurors in Alameda county. The data is from a jury pool of 1395 individuals. Our task is to see whether these disparities can be attributed to chance. In other words, we ask the familiar question: “Could this be due to chance?”</p>
+<p>First, let’s look at the data. The following table shows the counts of jurors from each racial group.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Race</th>
+<th align="center">Observed Count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">White</td>
+<td align="center">780</td>
+</tr>
+<tr class="even">
+<td align="left">Black</td>
+<td align="center">117</td>
+</tr>
+<tr class="odd">
+<td align="left">Hispanic</td>
+<td align="center">114</td>
+</tr>
+<tr class="even">
+<td align="left">Asian</td>
+<td align="center">384</td>
+</tr>
+</tbody>
+</table>
+<p>We would like to compare these counts or (percentages) to the racial distribution of eligible jurors of that county. The following table summarizes the racial makeup of the eligible population of Alameda county in 2010.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Race</th>
+<th align="center">Eligible Percent</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">White</td>
+<td align="center">54%</td>
+</tr>
+<tr class="even">
+<td align="left">Black</td>
+<td align="center">18%</td>
+</tr>
+<tr class="odd">
+<td align="left">Hispanic</td>
+<td align="center">12%</td>
+</tr>
+<tr class="even">
+<td align="left">Asian</td>
+<td align="center">16%</td>
+</tr>
+</tbody>
+</table>
+<p>Following what we did with class year example we can use the Chi-squared test to see whether there is an unusual disparity in the observed and the expected counts.</p>
+<p><strong>Perform the test and examine the residuals</strong></p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="chi-squared-test-and-its-variants.html#cb52-1" aria-hidden="true" tabindex="-1"></a>juror_counts <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;White&#39;</span> <span class="ot">=</span> <span class="dv">780</span>, </span>
+<span id="cb52-2"><a href="chi-squared-test-and-its-variants.html#cb52-2" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&#39;Black&#39;</span> <span class="ot">=</span> <span class="dv">117</span>, </span>
+<span id="cb52-3"><a href="chi-squared-test-and-its-variants.html#cb52-3" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&#39;Hispanic&#39;</span> <span class="ot">=</span> <span class="dv">114</span>, </span>
+<span id="cb52-4"><a href="chi-squared-test-and-its-variants.html#cb52-4" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&#39;Asian&#39;</span> <span class="ot">=</span> <span class="dv">384</span>) </span>
+<span id="cb52-5"><a href="chi-squared-test-and-its-variants.html#cb52-5" aria-hidden="true" tabindex="-1"></a>                  </span>
+<span id="cb52-6"><a href="chi-squared-test-and-its-variants.html#cb52-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-7"><a href="chi-squared-test-and-its-variants.html#cb52-7" aria-hidden="true" tabindex="-1"></a>jury_chisq_test <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(<span class="at">x =</span> juror_counts, <span class="at">p =</span> <span class="fu">c</span>(.<span class="dv">54</span>, .<span class="dv">18</span>, .<span class="dv">12</span>, .<span class="dv">16</span>))</span>
+<span id="cb52-8"><a href="chi-squared-test-and-its-variants.html#cb52-8" aria-hidden="true" tabindex="-1"></a>jury_chisq_test</span></code></pre></div>
+<pre><code>## 
+##  Chi-squared test for given probabilities
+## 
+## data:  juror_counts
+## X-squared = 205.44, df = 3, p-value &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="chi-squared-test-and-its-variants.html#cb54-1" aria-hidden="true" tabindex="-1"></a>jury_chisq_test<span class="sc">$</span>observed</span></code></pre></div>
+<pre><code>##    White    Black Hispanic    Asian 
+##      780      117      114      384</code></pre>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="chi-squared-test-and-its-variants.html#cb56-1" aria-hidden="true" tabindex="-1"></a>jury_chisq_test<span class="sc">$</span>expected</span></code></pre></div>
+<pre><code>##    White    Black Hispanic    Asian 
+##    753.3    251.1    167.4    223.2</code></pre>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="chi-squared-test-and-its-variants.html#cb58-1" aria-hidden="true" tabindex="-1"></a>jury_chisq_test<span class="sc">$</span>residuals</span></code></pre></div>
+<pre><code>##      White      Black   Hispanic      Asian 
+##  0.9728083 -8.4626313 -4.1272762 10.7631390</code></pre>
+<p>The Chi-squared value is 205 which means the p-value is essentially zero. Hence we can safely say that observed counts are highly unlikely under the assumption of the racial makeup (of the eligible jurors) in Alameda county . Does this mean that there is racial discrimination in selecting jurors? We need to be very careful here. This test only allow us to safely rule out random chance as a plausible explanation. However, this allow us to push the local authorities for an alternative explanation for the disparities we see in the data. In addition, we should
+<span style="color: red;">ALWAYS</span> examine the residuals. They provide a richer picture of the data, something that we can’t get with the p-value. This is a very important point to keep in mind. In ANY analysis, the p-value is not the end, it is in fact the beginning of a long journey (analysis).</p>
+<p>The residuals from the above test reveal an interesting pattern. All minorities have residuals that are quite large (larger than 2 in magnitude). In particular, Blacks and Hispanics are underrepresented (8 and 4 SD’s below the expected counts respectively) while the Asians were over-represented by a huge margin (10 SD’s above the expected count!). These are vital pieces of information when we try to answer the racial discrimination question.</p>
+<div id="summary-2" class="section level4 unnumbered hasAnchor">
+<h4>Summary<a href="chi-squared-test-and-its-variants.html#summary-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><p>The Chi-squared goodness fit test helps us to test whether a given set of counts conforms to (fit) a prespecified distribution.</p></li>
+<li><p>The test statistic <span class="math inline">\(X^2\)</span> has a Chi-squared distribution with <span class="math inline">\((k-1)\)</span> degrees of freedom under the null hypothesis where <span class="math inline">\(k\)</span> is the number of groups in the data. Large values of the test statistic provides evidence against the null hypothesis.</p></li>
+<li><p>ALWAYS look at the residuals of the test to get a better understanding of the data. Don’t just look at p-value. Remember, p-values are like mosquitoes! :)</p></li>
+</ul>
+</div>
+</div>
+<div id="test-of-homogeneity" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Test of Homogeneity<a href="chi-squared-test-and-its-variants.html#test-of-homogeneity" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This is second variation of the Chi-squared test. The main purpose of this test is to test whether samples taken from several populations or entities have a similar distribution. In other words, this is sort of like doing the goodness-of-fit test ( what we just studied above) across multiple populations. Let’s look at an example.</p>
+<p><strong>Example:</strong>
+Suppose we have five samples from 5 major hospitals in NYC. We wanted to see whether COVID-19 virus complication rates are similar in these five hospitals.</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="center">Hospital 1</th>
+<th align="center">Hospital 2</th>
+<th align="center">Hospital 3</th>
+<th align="center">Hospital 4</th>
+<th align="center">Hospital 5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Respiratory distress</td>
+<td align="center">1129</td>
+<td align="center">661</td>
+<td align="center">789</td>
+<td align="center">350</td>
+<td align="center">2402</td>
+</tr>
+<tr class="even">
+<td>Cardiovascular shock</td>
+<td align="center">197</td>
+<td align="center">103</td>
+<td align="center">135</td>
+<td align="center">60</td>
+<td align="center">405</td>
+</tr>
+<tr class="odd">
+<td>Arrhythmia</td>
+<td align="center">105</td>
+<td align="center">76</td>
+<td align="center">83</td>
+<td align="center">45</td>
+<td align="center">231</td>
+</tr>
+<tr class="even">
+<td>Kidney failure</td>
+<td align="center">73</td>
+<td align="center">21</td>
+<td align="center">67</td>
+<td align="center">23</td>
+<td align="center">174</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="chi-squared-test-and-its-variants.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a table with 4 rows and 5 columns</span></span>
+<span id="cb60-2"><a href="chi-squared-test-and-its-variants.html#cb60-2" aria-hidden="true" tabindex="-1"></a>covid <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">ncol =</span> <span class="dv">5</span>)</span>
+<span id="cb60-3"><a href="chi-squared-test-and-its-variants.html#cb60-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-4"><a href="chi-squared-test-and-its-variants.html#cb60-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Name the rows and columns of the table</span></span>
+<span id="cb60-5"><a href="chi-squared-test-and-its-variants.html#cb60-5" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(covid) <span class="ot">&lt;-</span>  <span class="fu">c</span>(<span class="st">&#39;Respiratory distress&#39;</span>,</span>
+<span id="cb60-6"><a href="chi-squared-test-and-its-variants.html#cb60-6" aria-hidden="true" tabindex="-1"></a>                      <span class="st">&#39;Cardiovascular shock&#39;</span>, </span>
+<span id="cb60-7"><a href="chi-squared-test-and-its-variants.html#cb60-7" aria-hidden="true" tabindex="-1"></a>                      <span class="st">&#39;Arrhythmia&#39;</span>,</span>
+<span id="cb60-8"><a href="chi-squared-test-and-its-variants.html#cb60-8" aria-hidden="true" tabindex="-1"></a>                      <span class="st">&#39;Kidney failure&#39;</span>)</span>
+<span id="cb60-9"><a href="chi-squared-test-and-its-variants.html#cb60-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-10"><a href="chi-squared-test-and-its-variants.html#cb60-10" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(covid) <span class="ot">&lt;-</span>  <span class="fu">c</span>(<span class="st">&#39;Hospital 1&#39;</span>,<span class="st">&#39;Hospital 2&#39;</span>,<span class="st">&#39;Hospital 3&#39;</span>,<span class="st">&#39;Hospital 4&#39;</span>,<span class="st">&#39;Hospital 5&#39;</span>)</span>
+<span id="cb60-11"><a href="chi-squared-test-and-its-variants.html#cb60-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-12"><a href="chi-squared-test-and-its-variants.html#cb60-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill in each column with the corresponding data</span></span>
+<span id="cb60-13"><a href="chi-squared-test-and-its-variants.html#cb60-13" aria-hidden="true" tabindex="-1"></a>covid[ , <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1129</span>, <span class="dv">197</span>, <span class="dv">105</span>, <span class="dv">73</span>)</span>
+<span id="cb60-14"><a href="chi-squared-test-and-its-variants.html#cb60-14" aria-hidden="true" tabindex="-1"></a>covid[ , <span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">661</span>, <span class="dv">103</span>, <span class="dv">76</span>, <span class="dv">21</span>)</span>
+<span id="cb60-15"><a href="chi-squared-test-and-its-variants.html#cb60-15" aria-hidden="true" tabindex="-1"></a>covid[ , <span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">789</span>, <span class="dv">135</span>, <span class="dv">83</span>, <span class="dv">67</span>)</span>
+<span id="cb60-16"><a href="chi-squared-test-and-its-variants.html#cb60-16" aria-hidden="true" tabindex="-1"></a>covid[ , <span class="dv">4</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">350</span>, <span class="dv">60</span>, <span class="dv">45</span>, <span class="dv">23</span>)</span>
+<span id="cb60-17"><a href="chi-squared-test-and-its-variants.html#cb60-17" aria-hidden="true" tabindex="-1"></a>covid[ , <span class="dv">5</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2402</span>, <span class="dv">405</span>, <span class="dv">231</span>, <span class="dv">174</span>)</span>
+<span id="cb60-18"><a href="chi-squared-test-and-its-variants.html#cb60-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-19"><a href="chi-squared-test-and-its-variants.html#cb60-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Simple bar chart</span></span>
+<span id="cb60-20"><a href="chi-squared-test-and-its-variants.html#cb60-20" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(covid, </span>
+<span id="cb60-21"><a href="chi-squared-test-and-its-variants.html#cb60-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&#39;red&#39;</span>,<span class="st">&#39;green&#39;</span>,<span class="st">&#39;blue&#39;</span>, <span class="st">&#39;yellow&#39;</span>),</span>
+<span id="cb60-22"><a href="chi-squared-test-and-its-variants.html#cb60-22" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb60-23"><a href="chi-squared-test-and-its-variants.html#cb60-23" aria-hidden="true" tabindex="-1"></a>        <span class="at">args.legend =</span> <span class="fu">list</span>(<span class="at">bty =</span> <span class="st">&#39;n&#39;</span>, <span class="at">x =</span><span class="st">&#39;right&#39;</span>, <span class="at">ncol =</span> <span class="dv">1</span>),</span>
+<span id="cb60-24"><a href="chi-squared-test-and-its-variants.html#cb60-24" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">10</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-72-1.png" width="672" /></p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="chi-squared-test-and-its-variants.html#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Note 1: In the above command legend.text&#39; = TRUE means include the legend.  </span></span>
+<span id="cb61-2"><a href="chi-squared-test-and-its-variants.html#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="co">#         args.legend = list(...stuff...) gives additional parameters for the legend.</span></span>
+<span id="cb61-3"><a href="chi-squared-test-and-its-variants.html#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="co">#                            bty = &#39;n&#39; means no border aroind the legend</span></span>
+<span id="cb61-4"><a href="chi-squared-test-and-its-variants.html#cb61-4" aria-hidden="true" tabindex="-1"></a><span class="co">#                            x = &#39;right&#39; means position of the lenged</span></span>
+<span id="cb61-5"><a href="chi-squared-test-and-its-variants.html#cb61-5" aria-hidden="true" tabindex="-1"></a><span class="co">#                            ncol = 1 means the number of columns in the legend.</span></span>
+<span id="cb61-6"><a href="chi-squared-test-and-its-variants.html#cb61-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-7"><a href="chi-squared-test-and-its-variants.html#cb61-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Note 2: This is not the most efficient way to plot barcharts.  </span></span>
+<span id="cb61-8"><a href="chi-squared-test-and-its-variants.html#cb61-8" aria-hidden="true" tabindex="-1"></a><span class="co">#         Using ggplot() is far better.  But, I chose this approach because</span></span>
+<span id="cb61-9"><a href="chi-squared-test-and-its-variants.html#cb61-9" aria-hidden="true" tabindex="-1"></a><span class="co">#         having the data as a matrix, rather than a dataframe helps us do the </span></span>
+<span id="cb61-10"><a href="chi-squared-test-and-its-variants.html#cb61-10" aria-hidden="true" tabindex="-1"></a><span class="co">#         Chi-squared test quickly, which is the main goal of this chapter. </span></span></code></pre></div>
+<p>The above plot is somewhat misleading. As you can see, the y-axis represents the counts. So, if the sample sizes are <strong>unequal</strong>, which is the case in our study, it is difficult to compare the distributions across the hospitals. Therefore we need to calculate the percentages of these disease categories so we can have a meaningful comparison of the hospitals. Consider the following plot. You can now easily compare the 5 hospitals. The distributions seem quite similar to the naked eye with some unequal parts. So you might ask, “could these apparent dissimilarities be a result of chance?”. This is where statistics is needed to discern whether the disease distributions are actually similar across the 5 hospitals.</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="chi-squared-test-and-its-variants.html#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Percentage bar chart -- margin = 2 means that we compute column percentages.</span></span>
+<span id="cb62-2"><a href="chi-squared-test-and-its-variants.html#cb62-2" aria-hidden="true" tabindex="-1"></a>covid_proportions <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(covid, <span class="at">margin =</span> <span class="dv">2</span>) </span>
+<span id="cb62-3"><a href="chi-squared-test-and-its-variants.html#cb62-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-4"><a href="chi-squared-test-and-its-variants.html#cb62-4" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(covid_proportions, </span>
+<span id="cb62-5"><a href="chi-squared-test-and-its-variants.html#cb62-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&#39;red&#39;</span>,<span class="st">&#39;green&#39;</span>,<span class="st">&#39;blue&#39;</span>, <span class="st">&#39;yellow&#39;</span>),</span>
+<span id="cb62-6"><a href="chi-squared-test-and-its-variants.html#cb62-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb62-7"><a href="chi-squared-test-and-its-variants.html#cb62-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">args.legend =</span> <span class="fu">list</span>(<span class="at">bty =</span> <span class="st">&#39;n&#39;</span>, <span class="at">x =</span><span class="st">&#39;right&#39;</span>, <span class="at">ncol =</span> <span class="dv">1</span>),</span>
+<span id="cb62-8"><a href="chi-squared-test-and-its-variants.html#cb62-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">10</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-73-1.png" width="672" /></p>
+<p>First we need to state our hypothesis. Our null hypothesis is that the distributions are identical across the 5 hospitals. We can denote this as follows:</p>
+<p><span class="math inline">\(H_0:\)</span></p>
+<p><span class="math inline">\(P_{Respir|1} = P_{Respir|2} = \ \  \ldots \ldots \ldots = P_{Respir|5} = P_{CommonR}\)</span></p>
+<p><span class="math inline">\(P_{Cardio|1} = P_{Cardio|2} = \ \  \ldots \ldots \ldots = P_{Cardio|5} = P_{CommonC}\)</span></p>
+<p><span class="math inline">\(P_{Arrhyth|1} = P_{Arrhyth|2} = \ \  \ldots \ldots \ldots = P_{Arrhyth|5} = P_{CommonA}\)</span></p>
+<p><span class="math inline">\(P_{Kidney|1} = P_{Kidney|2} = \ \  \ldots \ldots \ldots = P_{Kidney|5} = P_{CommonK}\)</span></p>
+<p><br />
+</p>
+<p><span class="math inline">\(H_1:\)</span> The distributions are not similar across the 5 hospitals</p>
+<p><br />
+</p>
+<p>Now we need to to use the null hypothesis to find the expected counts for each disease.</p>
+<p>The null hypothesis states that <strong>there is no difference between the hospitals</strong> when it comes to the <strong>proportion</strong> of patients in each complication category. Therefore, we can pool the observed counts to estimate a common proportion for each category as follows:</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="center">Total</th>
+<th align="right">Percent</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Respiratory distress</td>
+<td align="center">5331</td>
+<td align="right">74.78%</td>
+</tr>
+<tr class="even">
+<td>Cardiovascular shock</td>
+<td align="center">900</td>
+<td align="right">12.62%</td>
+</tr>
+<tr class="odd">
+<td>Arrhythmia</td>
+<td align="center">540</td>
+<td align="right">7.58%</td>
+</tr>
+<tr class="even">
+<td>Kidney failure</td>
+<td align="center">358</td>
+<td align="right">5.02%</td>
+</tr>
+</tbody>
+</table>
+<p>Now we can ask, what fraction of cases from each hospital would we <strong>expect</strong> to see in each disease category. To complete this calculation we also need the total sample sizes of each hospital. The table below shows how many patients we sampled from each hospital.</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="center">Hospital 1</th>
+<th align="center">Hospital 2</th>
+<th align="center">Hospital 3</th>
+<th align="center">Hospital 4</th>
+<th align="center">Hospital 5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Total cases sampled</td>
+<td align="center">1504</td>
+<td align="center">861</td>
+<td align="center">1074</td>
+<td align="center">478</td>
+<td align="center">3212</td>
+</tr>
+</tbody>
+</table>
+<p>Now we have all the ingredients to calculate the expected counts in each category and for each hospital. For example, the sample size of hospital 1 was 1504. So we’d <strong>expect</strong> about 74.78% of these cases to be in the category of ‘Respiratory distress’. That is,</p>
+<p><br />
+</p>
+<p><strong>Expected count in respiratory distress in Hospital 1 = </strong> 1504 * 0.7478 = 1124.69</p>
+<p><br />
+</p>
+<p>Likewise we can calculate the expected counts for each category in hospital 1. Then repeat the same process for hospital 2 and so on. You might now wonder: : “Do we have to do this by hand?”. Of course not. We will use R to do all the heavy lifting. Before that I’d like to point out an important fact on calculating the expected counts. Let’s consider the above calculation with hospital 1 data. Note that the percentage of “Respiratory distress” was calculated by dividing the total cases in that category (across all hospitals) by the grand total which was 7129. So we can rewrite the calculation as follows:</p>
+<p>Expected count in respiratory distress in Hospital 1
+<span class="math display">\[ = 1504 * 0.7478 \]</span>
+<span class="math display">\[ = 1504 * \frac{5331}{7129}\]</span></p>
+<p>If you look at this above expression carefully you will see that the expected count only depends on 3 things from the original data table.</p>
+<ol style="list-style-type: decimal">
+<li>The column total (1504, the total cases in that hospital)</li>
+<li>The row total (5331, the total cases in respiratory distress across all hospitals)</li>
+<li>The grand total.</li>
+</ol>
+<p>The expected count for any hospital and disease category can be written as:</p>
+<p><span class="math display">\[ Expected \ Count \ = \ \frac{Row\ Total\ *\ Column\ Total}{Grand\ Total}\]</span></p>
+<p><strong>Perform the test</strong></p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="chi-squared-test-and-its-variants.html#cb63-1" aria-hidden="true" tabindex="-1"></a>mycovid_test <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(covid)</span>
+<span id="cb63-2"><a href="chi-squared-test-and-its-variants.html#cb63-2" aria-hidden="true" tabindex="-1"></a>mycovid_test</span></code></pre></div>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  covid
+## X-squared = 22.449, df = 12, p-value = 0.03278</code></pre>
+<p>As you can see from the plot below the observed value of the Chi-squared test statistics (22.449) is in the unlikely region. How unlikely? About 3%. How do we interpret this p-value?</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-75-1.png" width="672" /></p>
+<p>The next thing that we should <strong>ALWAYS</strong> do is to examine the residuals.</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="chi-squared-test-and-its-variants.html#cb65-1" aria-hidden="true" tabindex="-1"></a>mycovid_test<span class="sc">$</span>residuals</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Hospital 1</th>
+<th align="right">Hospital 2</th>
+<th align="right">Hospital 3</th>
+<th align="right">Hospital 4</th>
+<th align="right">Hospital 5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Respiratory distress</td>
+<td align="right">0.129</td>
+<td align="right">0.676</td>
+<td align="right">-0.498</td>
+<td align="right">-0.394</td>
+<td align="right">0.002</td>
+</tr>
+<tr class="even">
+<td align="left">Cardiovascular shock</td>
+<td align="right">0.517</td>
+<td align="right">-0.546</td>
+<td align="right">-0.050</td>
+<td align="right">-0.044</td>
+<td align="right">-0.025</td>
+</tr>
+<tr class="odd">
+<td align="left">Arrhythmia</td>
+<td align="right">-0.836</td>
+<td align="right">1.335</td>
+<td align="right">0.183</td>
+<td align="right">1.461</td>
+<td align="right">-0.789</td>
+</tr>
+<tr class="even">
+<td align="left">Kidney failure</td>
+<td align="right">-0.291</td>
+<td align="right">-3.382</td>
+<td align="right">1.779</td>
+<td align="right">-0.205</td>
+<td align="right">1.000</td>
+</tr>
+</tbody>
+</table>
+<p><br />
+</p>
+<p>Recall that these residuals are in the form of z-scores. That is, they tell you how far off the observed counts from the expected in terms of standard deviation units. Therefore, any residual that is larger than 2 is deemed <strong>unusual</strong>. When you examine the table above, you’ll notice something very interesting. None of the residuals seem “large” except the last value in Hospital 2. The residual value is -3.38 which tells us that, in Hospital 2, the number of observed kidney failures is 3.38 SD’s <span style="color: red;">BELOW</span> the expected value (under the assumptions that all hospitals have the same proportion in each disease category). This is a very important finding. There can be two plausible explanations for this unusual occurrence:</p>
+<ol style="list-style-type: decimal">
+<li><p>Maybe the patients who get admitted to Hospital 2 already have kidney related issues or maybe more susceptible to kidney failures.</p></li>
+<li><p>Maybe Hospital 2 was doing something “right” (or different from others) when it comes to handling COVID-19 patients which led to lower than expected kidney failures.</p></li>
+</ol>
+<p>Possibility 1 seems a bit unlikely because these data come from random samples across NYC, so it is unlikely that ALL the kidney patients tend to cluster in one geographical area. Nonetheless, the doctors and health officials can (and should) check this by going through patient records. If we can verify that they <strong>DO NOT</strong> have any history of kidney related issues and don’t seem to have a special susceptibility to kidney failures then we can then move on to possibility 2. If Hospital 2 is doing something “right” it can share this knowledge with other hospitals so that they can try it on their patients and hopefully it <strong>MIGHT</strong> lead to similar (favorable) outcomes. We need to stress here that this is something we have do with utmost care, because these findings don’t necessarily mean that whatever Hospital 2 is doing is the <strong>CAUSE</strong> of the low kidney failure counts that we observed. It is only a <strong>CORRELATION</strong>. As we always say in this course, <strong>domain knowledge</strong> is key in any real life situation. We, the statisticians, can only report our findings in an easily understandable way. The rest is up to the experts in the relevant field. Let’s hope that they do the right thing!</p>
+<p><br />
+</p>
+<p>let’s look at another example to solidify our understanding.</p>
+<p><strong>Example:</strong></p>
+<p>Suppose you are interested in public opinion on gun laws in the state of New York. You also are interested whether these opinions tend to be similar (or different) across political party affiliations. You decided to use a telephone survey (typical means of doing public opinion surveys) to gather your data. Before collecting the data you got a list of registered Democrats,
+Republicans and Independents in the state of NY. You can make a freedom of information act request here : <a href="https://www.elections.ny.gov/FoilRequests.html" class="uri">https://www.elections.ny.gov/FoilRequests.html</a> to obtain this information.</p>
+<p>Now that you have a list of registered Democrats, Republicans and Independents, you can randomly pick say 200 from each group and call them to find out their opinions on gun laws. Suppose you conducted the survey successfully and obtained the following information.</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="center">Democrat</th>
+<th align="center">Republican</th>
+<th align="center">Independent</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Need stricter gun laws</td>
+<td align="center">90</td>
+<td align="center">56</td>
+<td align="center">39</td>
+</tr>
+<tr class="even">
+<td>Need to loosen gun laws</td>
+<td align="center">17</td>
+<td align="center">103</td>
+<td align="center">23</td>
+</tr>
+<tr class="odd">
+<td>Keep as is</td>
+<td align="center">93</td>
+<td align="center">41</td>
+<td align="center">138</td>
+</tr>
+<tr class="even">
+<td></td>
+<td align="center">200</td>
+<td align="center">200</td>
+<td align="center">200</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="chi-squared-test-and-its-variants.html#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a table with 3 rows and 3 columns</span></span>
+<span id="cb66-2"><a href="chi-squared-test-and-its-variants.html#cb66-2" aria-hidden="true" tabindex="-1"></a>gun_opinion <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">ncol =</span> <span class="dv">3</span>)</span>
+<span id="cb66-3"><a href="chi-squared-test-and-its-variants.html#cb66-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-4"><a href="chi-squared-test-and-its-variants.html#cb66-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Name the rows and columns of the table</span></span>
+<span id="cb66-5"><a href="chi-squared-test-and-its-variants.html#cb66-5" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(gun_opinion) <span class="ot">&lt;-</span>  <span class="fu">c</span>(<span class="st">&#39;Strict&#39;</span>,</span>
+<span id="cb66-6"><a href="chi-squared-test-and-its-variants.html#cb66-6" aria-hidden="true" tabindex="-1"></a>                            <span class="st">&#39;Loose&#39;</span>, </span>
+<span id="cb66-7"><a href="chi-squared-test-and-its-variants.html#cb66-7" aria-hidden="true" tabindex="-1"></a>                            <span class="st">&#39;As is&#39;</span>)</span>
+<span id="cb66-8"><a href="chi-squared-test-and-its-variants.html#cb66-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-9"><a href="chi-squared-test-and-its-variants.html#cb66-9" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(gun_opinion) <span class="ot">&lt;-</span>  <span class="fu">c</span>(<span class="st">&#39;Democrat&#39;</span>,<span class="st">&#39;Republican&#39;</span>,<span class="st">&#39;Independent&#39;</span>)</span>
+<span id="cb66-10"><a href="chi-squared-test-and-its-variants.html#cb66-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-11"><a href="chi-squared-test-and-its-variants.html#cb66-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill in each column with the corresponding data</span></span>
+<span id="cb66-12"><a href="chi-squared-test-and-its-variants.html#cb66-12" aria-hidden="true" tabindex="-1"></a>gun_opinion[ , <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">90</span>, <span class="dv">17</span>, <span class="dv">93</span>)</span>
+<span id="cb66-13"><a href="chi-squared-test-and-its-variants.html#cb66-13" aria-hidden="true" tabindex="-1"></a>gun_opinion[ , <span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">56</span>, <span class="dv">103</span>, <span class="dv">41</span>)</span>
+<span id="cb66-14"><a href="chi-squared-test-and-its-variants.html#cb66-14" aria-hidden="true" tabindex="-1"></a>gun_opinion[ , <span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">39</span>, <span class="dv">23</span>, <span class="dv">138</span>)</span>
+<span id="cb66-15"><a href="chi-squared-test-and-its-variants.html#cb66-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-16"><a href="chi-squared-test-and-its-variants.html#cb66-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Proportions bar chart</span></span>
+<span id="cb66-17"><a href="chi-squared-test-and-its-variants.html#cb66-17" aria-hidden="true" tabindex="-1"></a>gun_opinion_proportions <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(gun_opinion, <span class="at">margin =</span> <span class="dv">2</span>) </span>
+<span id="cb66-18"><a href="chi-squared-test-and-its-variants.html#cb66-18" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(gun_opinion_proportions, </span>
+<span id="cb66-19"><a href="chi-squared-test-and-its-variants.html#cb66-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&#39;red&#39;</span>,<span class="st">&#39;green&#39;</span>,<span class="st">&#39;blue&#39;</span>),</span>
+<span id="cb66-20"><a href="chi-squared-test-and-its-variants.html#cb66-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb66-21"><a href="chi-squared-test-and-its-variants.html#cb66-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">args.legend =</span> <span class="fu">list</span>(<span class="at">bty =</span> <span class="st">&#39;n&#39;</span>, <span class="at">x =</span><span class="st">&#39;right&#39;</span>, <span class="at">ncol =</span> <span class="dv">1</span>),</span>
+<span id="cb66-22"><a href="chi-squared-test-and-its-variants.html#cb66-22" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">5</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-78-1.png" width="672" /></p>
+<p>As you can see the three distributions are no where near close to be similar. I don’t think we need to perform any statistical analysis on this because the differences across the parties are so large that random chance can not be a plausible explanation. But, in order to examine the residuals (something we should <strong>ALWAYS</strong> do) we need to run the test.</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="chi-squared-test-and-its-variants.html#cb67-1" aria-hidden="true" tabindex="-1"></a>gun_opinion_test <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(gun_opinion)</span>
+<span id="cb67-2"><a href="chi-squared-test-and-its-variants.html#cb67-2" aria-hidden="true" tabindex="-1"></a>gun_opinion_test</span></code></pre></div>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  gun_opinion
+## X-squared = 170.58, df = 4, p-value &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="chi-squared-test-and-its-variants.html#cb69-1" aria-hidden="true" tabindex="-1"></a>gun_opinion_test<span class="sc">$</span>residuals</span></code></pre></div>
+<pre><code>##         Democrat Republican Independent
+## Strict  3.608049 -0.7216098   -2.886439
+## Loose  -4.441802  8.0145555   -3.572754
+## As is   0.245049 -5.2160433    4.970994</code></pre>
+<p>Does the residuals tell us anything interesting? One thing we immediately see is that ALL residuals except two values are larger than 2. We all know that Republicans tend to favor loose gun laws and Democrats favor tighter gun laws. We can clearly see that in the residuals. But the magnitudes are very different. Republicans are <strong>8 standard deviations</strong> above the expected count for loose gun laws. It is a huge deviation compared to the Democrats in supporting stricter gun laws (<strong>3.6 SD’s</strong> from the expected).</p>
+<hr />
+<p>I admit that the above example is not that interesting. However, I chose this example to compare and contrast an important point about data collection and how it effects our analysis. Let’s dive in.</p>
+</div>
+<div id="test-of-independence" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> Test of Independence<a href="chi-squared-test-and-its-variants.html#test-of-independence" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Example:</strong></p>
+<p>Look back at the previous example on gun laws. Notice how the data was collected in that example. It had two steps:</p>
+<ol style="list-style-type: decimal">
+<li>Obtain a list of ALL registered voters.</li>
+<li>Then randomly sample 200 from each group (Dem, Rep, Ind).</li>
+</ol>
+<p>Our primary goal was to see whether the groups are similar (homogeneous) in terms of their opinions on gun laws. We used the test of homogeneity to answer that question. The hypothesis is about the conditional probabilities of opinion given that the person is from a certain political party. That is:</p>
+<p><span class="math display">\[ P_{Opinion\ |\ Dem} = P_{Opinion\ |\ Repub} =  P_{Opinion\ |\ Ind}\]</span></p>
+<p>The conditional aspect comes from the way we collected the data. In our data collection, we measured only one random variable, the opinion. What do I mean by that? When we collected the data, we would call a Democrat, for example, and ask him or her to provide their opinion on gun laws. So we already knew that the person we are calling is a Democrat. So it is not a random variable. But the opinion of that person is unknown to us at the time of the call. So the opinion is the <strong>ONLY random (unknown) quantity</strong> that we measured. Now let’s consider a different approach to data collection.</p>
+<p>Rather than getting a list of ALL registered voters and sample from that list, what if we simply call 600 people via random digit dialing (the most typical method in opinion polls). At the time of the call we have no idea about <strong>TWO</strong> things:</p>
+<ol style="list-style-type: decimal">
+<li>The party affiliation of the person</li>
+<li>Their opinion on gun laws.</li>
+</ol>
+<p>So we measure <strong>TWO random variables</strong> and we are interested in the interplay between these two variables. That is, we want to know the dependence or independence of these two variables. Hence the name, test of independence.</p>
+<p><br />
+</p>
+<p>Let us now see how to perform this test. Now that you’ve seen how a chi-squared test is done, let’s proceed with the relevant steps.</p>
+<p><strong>Step 1: </strong></p>
+<p>Define the null and the alternative hypotheses for the test.</p>
+<p><span class="math inline">\(H_0:\)</span> The two variables (Party affiliation and Opinion) are <span style="color: red;">independent:</span> of each other.</p>
+<p><span class="math inline">\(H_1:\)</span> The two variables are <strong>dependent</strong>.</p>
+<p><strong>Step 2: </strong></p>
+<p>Calculate the expected counts under the null hypothesis.</p>
+<p>First, let’s look at the data table below. Our total sample size is 600 but the column totals are different from the previous example. We no longer have exactly 200 members selected from each group because when you randomly call 600 people you have no control over the totals in each group. Remember, we are measuring <strong>TWO random variables</strong>, Party and Opinion.</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="center">Democrat</th>
+<th align="center">Republican</th>
+<th align="center">Independent</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Need stricter gun laws</td>
+<td align="center">88</td>
+<td align="center">41</td>
+<td align="center">37</td>
+<td>166</td>
+</tr>
+<tr class="even">
+<td>Need to loosen gun laws</td>
+<td align="center">18</td>
+<td align="center">97</td>
+<td align="center">31</td>
+<td>146</td>
+</tr>
+<tr class="odd">
+<td>Keep as is</td>
+<td align="center">91</td>
+<td align="center">56</td>
+<td align="center">141</td>
+<td>288</td>
+</tr>
+<tr class="even">
+<td></td>
+<td align="center">197</td>
+<td align="center">194</td>
+<td align="center">209</td>
+<td>600</td>
+</tr>
+</tbody>
+</table>
+<p>Suppose we need to compute the expected count for row 1, column 1 of the table below. In this case, it is Democrats who support stricter gun laws. Now we ask, out of the 600 people how many do we expect to be in this category IF the null hypothesis were true?</p>
+<p>To find this we need to know (or estimate) the probability of a person being a Democrat AND support stricter gun laws if the null hypothesis were true. That is, we need <span class="math inline">\(P[\ Democrat\ AND\ Strict\ ]\)</span> assuming that the two variables are independent. Recall from your intro stats the following result:</p>
+<p><span class="math display">\[P[A \ and \ B] = P[A].P[B]\]</span> if and only if the two events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are independent.</p>
+<p>Using this, we can say, under the null hypothesis of independence</p>
+<p><span class="math display">\[ P[\ Democrat\ AND\ Strict\ ] = P[\ Democrat\ ] .P[\ Strict\ ] \]</span></p>
+<p>Then we can estimate the above probability as follows:</p>
+<p><span class="math display">\[ P[\ Democrat\ ] = 197/600 \]</span></p>
+<p><span class="math display">\[ P[\ Strict\ ] = 166/600 \]</span></p>
+<p>Therefore, <span class="math display">\[ P[\ Democrat\ AND\ Strict\ ] = \frac{197}{600}.\frac{166}{600} \]</span></p>
+<p>No we can find, out of a 600 people how many would we expect to be in this category as follows:</p>
+<p><span class="math display">\[ Expected \ Count \ = 600 * P[\ Democrat\ AND\ Strict\ ] = 600 . (  \frac{197}{600}.\frac{166}{600}) \]</span></p>
+<p>If you examine above formula carefully you’ll notice that the expected count for any group and any opinion category can be written as:</p>
+<p><span class="math display">\[ Expected \ Count \ = \ \frac{Row\ Total\ *\ Column\ Total}{Grand\ Total}\]</span></p>
+<p>This is identical to the formula we had in the test of homogeneity. But we arrived at this via a different path (different hypothesis).</p>
+<p><strong>Step 3: </strong> Calculate the Chi-squared test statistic (<span class="math inline">\(X^2\)</span>) and the associated p-value and interpret your findings in context.</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="chi-squared-test-and-its-variants.html#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill in the table with the data</span></span>
+<span id="cb71-2"><a href="chi-squared-test-and-its-variants.html#cb71-2" aria-hidden="true" tabindex="-1"></a>gun_opinion[ , <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">88</span>, <span class="dv">18</span>, <span class="dv">91</span>)</span>
+<span id="cb71-3"><a href="chi-squared-test-and-its-variants.html#cb71-3" aria-hidden="true" tabindex="-1"></a>gun_opinion[ , <span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">41</span>, <span class="dv">97</span>, <span class="dv">56</span>)</span>
+<span id="cb71-4"><a href="chi-squared-test-and-its-variants.html#cb71-4" aria-hidden="true" tabindex="-1"></a>gun_opinion[ , <span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">37</span>, <span class="dv">31</span>, <span class="dv">141</span>)</span>
+<span id="cb71-5"><a href="chi-squared-test-and-its-variants.html#cb71-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-6"><a href="chi-squared-test-and-its-variants.html#cb71-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform the test</span></span>
+<span id="cb71-7"><a href="chi-squared-test-and-its-variants.html#cb71-7" aria-hidden="true" tabindex="-1"></a>gun_opinion_test <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(gun_opinion)</span>
+<span id="cb71-8"><a href="chi-squared-test-and-its-variants.html#cb71-8" aria-hidden="true" tabindex="-1"></a>gun_opinion_test</span></code></pre></div>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  gun_opinion
+## X-squared = 141.47, df = 4, p-value &lt; 2.2e-16</code></pre>
+<p>Let’s look at another example before we end this chapter.</p>
+<hr />
+<p><strong>Example:</strong></p>
+<p>There is a growing concern that Black drivers get searched more (compared to Whites) in regular traffic stops. The ‘crime’ ironically called “Driving while Black”. The following dataset is a random sample of traffic stops in Cincinnati in 2002.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Black</th>
+<th align="right">White</th>
+<th align="right">Other</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Searched? Yes</td>
+<td align="right">813</td>
+<td align="right">293</td>
+<td align="right">19</td>
+</tr>
+<tr class="even">
+<td align="left">Searched? No</td>
+<td align="right">787</td>
+<td align="right">594</td>
+<td align="right">27</td>
+</tr>
+</tbody>
+</table>
+<p><br />
+</p>
+<p><strong>Question:</strong>
+Is there any association between the driver’s race and being searched?</p>
+<p><br />
+</p>
+<p>Let’s use the Chi-squared test of independence to answer this question. First, let us state the null and the alternative hypotheses.</p>
+<p><span class="math inline">\(H_0:\)</span> The two variables, Race and Searched in a traffic top, are <span style="color: red;">independent:</span> of each other.</p>
+<p><span class="math inline">\(H_1:\)</span> The two variables are <strong>dependent</strong>.</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="chi-squared-test-and-its-variants.html#cb73-1" aria-hidden="true" tabindex="-1"></a>search_data <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol=</span><span class="dv">3</span>)</span>
+<span id="cb73-2"><a href="chi-squared-test-and-its-variants.html#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(search_data) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Searched? Yes&quot;</span>, <span class="st">&quot;Searched? No&quot;</span>)</span>
+<span id="cb73-3"><a href="chi-squared-test-and-its-variants.html#cb73-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(search_data) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;Black&#39;</span>, <span class="st">&#39;White&#39;</span>, <span class="st">&#39;Other&#39;</span>)</span>
+<span id="cb73-4"><a href="chi-squared-test-and-its-variants.html#cb73-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-5"><a href="chi-squared-test-and-its-variants.html#cb73-5" aria-hidden="true" tabindex="-1"></a>search_data[ , <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">813</span>, <span class="dv">787</span>)  </span>
+<span id="cb73-6"><a href="chi-squared-test-and-its-variants.html#cb73-6" aria-hidden="true" tabindex="-1"></a>search_data[ , <span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">293</span>, <span class="dv">594</span>)  </span>
+<span id="cb73-7"><a href="chi-squared-test-and-its-variants.html#cb73-7" aria-hidden="true" tabindex="-1"></a>search_data[ , <span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">19</span>, <span class="dv">27</span>)</span>
+<span id="cb73-8"><a href="chi-squared-test-and-its-variants.html#cb73-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-9"><a href="chi-squared-test-and-its-variants.html#cb73-9" aria-hidden="true" tabindex="-1"></a>search_test <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(search_data)</span>
+<span id="cb73-10"><a href="chi-squared-test-and-its-variants.html#cb73-10" aria-hidden="true" tabindex="-1"></a>search_test</span></code></pre></div>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  search_data
+## X-squared = 73.253, df = 2, p-value &lt; 2.2e-16</code></pre>
+<p>The p-value is essentially zero which indicates that <strong>IF</strong> race and subject to a search is <strong>INDEPENDENT</strong> then it is highly unlikely that we observed the counts in the above table. Therefore, we can conclude that there an ASSOCIATION between these two variables. However, we need to be super careful not to jump into a more stronger assertion like “There is a discrimination at traffic stops against black individuals” straight away. There might be many reasons behind this. To get a better understanding of the situation, let’s not forget to examine the residuals. It might shed more light into our analysis.</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="chi-squared-test-and-its-variants.html#cb75-1" aria-hidden="true" tabindex="-1"></a>search_test<span class="sc">$</span>residual</span></code></pre></div>
+<pre><code>##                   Black     White      Other
+## Searched? Yes  3.840584 -5.086104 -0.3164431
+## Searched? No  -3.432987  4.546322  0.2828593</code></pre>
+<p>The value that jumps out is the -5.08 in the White group. This suggests that IF race and search are independent, then the 293 searches in the White group is 5 standard deviations <strong>BELOW</strong> the expected count. This is huge. Why is it that the White group experienced a significantly less number of searches?</p>
+<p>On the other hand, the 813 searches in the Black group is about 4 standard deviations <strong>ABOVE</strong> the expected count. Why is the Black group experienced a significantly higher number of searches?</p>
+<p>These are the kinds of analyses you’ll need when you want confront officials. Without these types of ammunition your case is weak. The p-value is not sufficient to convince other (reasonable) people, you need more. As I mentioned before, the p-value is not the end, it is the beginning of a long journey (analysis).</p>
+<hr />
+</div>
+<div id="summary-3" class="section level2 unnumbered hasAnchor">
+<h2>Summary<a href="chi-squared-test-and-its-variants.html#summary-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We’ve learned the three flavors of the Chi-Squared test.</p>
+<ul>
+<li><p>Goodness of Fit Test (Check the distribution of <span style="color: red;">a variable</span> is in accordance to a per-specified distribution)</p></li>
+<li><p>Test of Homogeneity ( Check whether the distribution of <span style="color: red;">a variable</span> is similar across several populations or groups)</p></li>
+<li><p>Test of Independence ( Check whether <span style="color: red;">TWO variables</span> are correlated)</p></li>
+</ul>
+<p><br />
+</p>
+<p>The process of carrying out the test can be summarized as follows:</p>
+<p><strong>Step 1: </strong> Define the null and the alternative hypotheses for the test.</p>
+<p><strong>Step 2: </strong> Calculate the expected counts under the null hypothesis.</p>
+<p><strong>Step 3: </strong> Calculate the Chi-squared test statistic (<span class="math inline">\(X^2\)</span>) and the associated p-value. Interpret your findings in context.</p>
+<p><strong>Step 4: </strong> Examine the residuals to find out any other interesting facts about the data that may be hidden.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="p-values-jelly-beans-and-mosquitoes.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="the-logistic-regression-model.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/08-Chisq.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

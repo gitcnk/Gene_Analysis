@@ -4,11 +4,11 @@
 Many statistical problems require us to estimate population parameters or model parameters.  For example, we might want to know the percentage of binge drinkers in a college campus.  A good point estimate for this parameter is the sample proportion $\hat p$.  However, this value does not mean much unless we provide the variability of it.  That is, we'd like to know if we take a another sample of the same size (from the same population), how different of a $\hat p$ would we see compared to the one we had before.  In other words, how much variance can we expect in $\hat p$ from sample to sample.  Let's look at an example.  
 
 
-```{example, service}
-Consider the following simulated population.  Although this is a simulated population it is not that uncommon.  For example, most service time distributions, like time to complete a transaction, time to repair a car, etc follows this pattern.   
-```
 
-\
+Consider the following simulated population.  Although this is a simulated population it is not that uncommon.  For example, most service time distributions, like time to complete a transaction, time to repair a car, etc follows this pattern.   
+
+
+
 
 
 
@@ -187,10 +187,10 @@ plot_max30 + labs(title = 'Distribution of the Sample Maximum',
 
 These distributions (above) are called sampling distributions.  In particular, the first one is the sampling distribution of the sample mean and the second is the sampling distribution of the sample maximum.  Therefore we can define a sampling distribution of a statistic as follows.
 
-```{definition}
+
 **Sampling Distribution of a sample statistic** is defined as the distribution of values of that statistic under repeated sampling.
 
-```
+
 
 
 Note that the key phrase of the above definition: 'Sampling'.  It tells us that this has something to with samples coming from a population.  The next term  is 'Distribution'.  It tells us how the sample statistic chages from sample to sample.  Always remember to think about this twp terms carefully for few seconds before you answer any question about a sample statistic.  
@@ -251,28 +251,28 @@ These two properties
 -  the "spread" of the statistic and its relationship to sample size $n$.
 is defined more technically as follows.
 
-```{definition}
+
 **Center of the sampling distribution**  It is defined as the expected value  of the statistic.  It is a measure we use to see whether our statistic, on average, hits the target (population parameter).
-``` 
+
 
 Here is an example:
 
-```{example}
+
 Consider the sample mean $\bar x = \frac{\sum_{i=1}^n x_i}{n}$. The expected value of $\bar x$ is $E(\bar x) = E\left[\frac{\sum_{i=1}^n x_i}{n}\right] = \mu$.  Can you think how I got this value?
 
-```
 
 
 
-```{definition}
+
+
 **The standard Error(variablity of the sampling distribution)** is defined as the standard deviation of the statistic.
-```
+
 
 Here is an example.
 
-```{example}
+
 Consider the sample mean $\bar x = \frac{\sum_{i=1}^n x_i}{n}$.  The SE of $\bar x$ is $\sigma/\sqrt n$, where $\sigma$ is the population standard deviation.  Can you think how I got this value?
-```
+
 
 Calculating the expected value and standard error in the above example is not that difficult.  You will be doing this as a homework assignment for this chapter.  The key is to find the variance of $\bar x$.  That is, find $V(\bar x)$ first.   Then take the square root of it to find the SE.
 
@@ -286,8 +286,7 @@ All the plot and the definitions look very good, except that we have a major pro
 
 
 ```{}
-1. Is it practically possible to know  the shape of the sampling distribution
-of a statatistic? 
+1. Is it practically possible to know  the shape of the sampling distribution of a statistic? 
 ```
 
 **Answer - PART 1:**  In general, no.  

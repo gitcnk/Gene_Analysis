@@ -12,8 +12,7 @@ The Chi-Squared test comes in three flavors.
 
 As the name implies, this test checks whether a given set of data conforms to (fit) a prespecified distribution. Consider the following example:
 
-```{example}
-```
+**Example:**
 
 The following data is from a survey of Hamilton students conducted in 2016.  The counts are survey respondents in each class year.
 
@@ -231,8 +230,7 @@ ggplot(data.frame(x = c(0, 20)), aes(x = x)) +
  
 Let's look at another example. 
 
-```{example}
-```
+**Example:**
 
 The main issue we are investigating here is racial disparity is jury selection in Alameda county in northern California.  In 2010,  the American Civil Liberties Union (ACLU) found large disparities in the racial makeup of the selected jurors in Alameda county.  The data is from a jury pool of 1395 individuals.  Our task is to see whether these disparities can be attributed to chance.  In other words, we ask the familiar question: "Could this be due to chance?"
 
@@ -293,9 +291,8 @@ The residuals from the above test reveal an interesting pattern.  All minorities
 
 This is second variation of the Chi-squared test.  The main purpose of this test is to test whether samples taken from several populations or entities have a similar distribution.  In other words, this is sort of like doing the goodness-of-fit test ( what we just studied above) across multiple populations.  Let's look at an example.
 
-```{example}
 
-```
+**Example:**
 Suppose we have five samples from 5 major hospitals in NYC. We wanted to see whether COVID-19 virus complication rates are similar in these five hospitals.  
 
                        Hospital 1      Hospital 2     Hospital 3    Hospital 4    Hospital 5
@@ -485,8 +482,7 @@ Possibility 1 seems a bit unlikely because these data come from random samples a
 
 let's look at another example to solidify our understanding.
 
-```{example}
-```
+**Example:**
 
 Suppose you are interested in public opinion on gun laws in the state of New York.  You also are interested whether these opinions tend to be similar (or different) across political party affiliations.  You decided to use a telephone survey (typical means of doing public opinion surveys) to gather your data.  Before collecting the data you got a list of registered Democrats, 
 Republicans and Independents in the state of NY.  You can make a freedom of information act request here : https://www.elections.ny.gov/FoilRequests.html to obtain this information.
@@ -550,9 +546,7 @@ I admit that the above example is not that interesting.  However, I chose this e
 
 ## Test of Independence
 
-```{example}
-
-```
+**Example:**
 
 Look back at the previous example on gun laws.  Notice how the data was collected in that example.  It had two steps:
 
@@ -661,8 +655,8 @@ Let's look at another example before we end this chapter.
 ---
 
 
-```{example}
-```
+**Example:**
+
 There is a growing concern that Black drivers get searched more (compared to Whites) in regular traffic stops.  The 'crime' ironically called "Driving while Black".  The following dataset is a random sample of traffic stops in Cincinnati in 2002.
 
 

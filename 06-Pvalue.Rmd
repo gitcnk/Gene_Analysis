@@ -44,9 +44,7 @@ The next section discusses another strange aspect of the p-values.
 
 As statisticians, we love large samples.  The more information we have the better.  However, we need be careful with the p-values that we get when we are dealing with very large samples.  This goes at the heart of data analysis.  That is, we should pay a **LOT** of attention to context when dealing with numbers.  After all, data is simply numbers with a context.  Let's look at the following example:
 
-```{example}
-
-```
+**Example:**
 
 Suppose you have two independent sample from two population and you wan to test the following hypothesis:
 
@@ -166,7 +164,7 @@ ggplot(data=mydata) +
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 mymodel <- lm(Delay ~ FlightNo, data=mydata)
-tab_model(mymodel)
+summary(mymodel)
 ```
 \
 

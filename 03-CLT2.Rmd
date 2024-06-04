@@ -183,7 +183,7 @@ Now, let's look at the final example.  This data is about fligth delays.  You ca
 
 The dataset we are looking at consists of ALL flights that departed from LaGuadia airport in 2017 from the three main carriers (American Airlines, Delta, and United).  That is, all depatures from Jan 1 2017 to Dec 31 2017.  The variable of interest is departure delay time.  First, let's take a look at the population distribution of departure delays.
 
-\
+
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 
@@ -342,6 +342,7 @@ runGitHub(repo = "gitcnk/Apps/", subdir='CLT_Colleges')
 ```{}
 1. Why do people advocate for the "n > 30 rule" if it is problematic?
 ```
+
 **Answer:**  Hard to say.  My guess is that this is similar to our beliefs and pratices of recycling plastics.  That is, we were told to toss our plastics into the recycling bin and we normally believe that those plastics will get recycled somehow. By the reality is MUCH more complicated than that.  Here is a wonderful documentary: https://www.youtube.com/watch?v=-dk3NOEgX7o
 
 Similarly, the Central Limit Theorem should be used with caution.  There are many factors that we need to look into before we jump in and use this theorem.  The issue mainly lies in understanding the population and its distribution.  Since we don't have access to the population (if we did we'll be all be at the beach!), we have to rely on a random sample to make a judgement about the variability, skewness and outlier in the population.  This is a very challenging task.  For example, recall the flight delay example.  If we haven't had the entire dataset with us, would we have guessed that the population may look  exremely skewed?  Would we have guessed that there might be flights that are delayed 20 hours!  Consider an example about cancer medication and the survial time.  Unless we have an indepth knowledge about the cancer and the drug, it would be very difficult to even have a vague idea about the popluation distribution.  In this case we need to rely on domain experts to tell us more about variance, skewness and extreme values.
@@ -353,6 +354,7 @@ In realilty we only have a single sample from a given population and we need to 
 ```{}
 2. What are some of the signs that CLT may be questionble?
 ```
+
 **Answer:**  If you look back the simulated data examples and real data examples you'll see that, for **skewed data**, it takes much larger sample size (in some cases in the 100's) to use the CLT.  Also, in the final example with departure delyas, the popualtion was not only highly skewed but also contained extremely large values in the tail.  This is definitely a red flag.  So if you suspect that the population is skewed and/or with extreme values you need to be super careful with the CLT.
 
 
@@ -360,6 +362,8 @@ In realilty we only have a single sample from a given population and we need to 
 3. How can we know whether the population is skewed or not when we don't have access 
 to the entire population?
 ```
+
+
 **Answer:** This one is tricky.  Yes, we'll never have access to the entire population.  All we have is a single random sample.  If our sampling process was good in capturing the variance in the population then it will provide important clues about the skeness and precence of extreme values in the popualtion.  For example, here are two random sample of sizes $n=30$  and $n=100$ respectively from the flight delay example.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, fig.height = 4, fig.width=12}
@@ -384,7 +388,7 @@ ex_100 <- ggplot() +
 grid.arrange(ex_30, ex_100, nrow = 1, ncol = 2)  
 ```
 
-\
+
 
 As you can see from the above two plots, the bigger sample was able able to capture more of the variance in the poulation but still failed to include some of the really large delaya times even with $n=100$.  But, this is where the statisticians need to step in.  We can raise a red flag agaist anyone who is tempted to use the CLT with a sample like this for hypothesis testing or confidence intervals.  We can educate them to see the danger of using CLT with a sample like this.  
 
@@ -392,6 +396,7 @@ As you can see from the above two plots, the bigger sample was able able to capt
 4. If we see extreme values (like in the above two samples) should we remove them 
 and proceed to use the CLT?
 ```
+
 **Answer:** The safe answer is 'no'.  Removing data points has to be done with extreme care.  There are some instances where removing extreme values may be legitimate.
 
 - If the data values are recoreded incorrectly (errors in the data).  For example, someone might have keyed in 10,000 (incorrect) instead of 1000 (correct).  If we know for sure that this is the case, first we should try to find the correct value, if not remove it.
