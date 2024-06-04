@@ -22,7 +22,7 @@ The following plots show the population distribution of NBA player salaries in 2
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 
-NBA2016 <- read_csv(file = 'https://raw.githubusercontent.com/gitcnk/Data/master/NBA2016.csv')
+NBA2016 <- read.csv(file = 'https://raw.githubusercontent.com/gitcnk/Data/master/NBA2016.csv')
 
 variable_of_interest <- NBA2016$Salary/1000000
 
@@ -103,7 +103,7 @@ The second example is from ALL US colleges and universities.  Note that there ar
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 
-colleges <- read_csv(file = 'https://raw.githubusercontent.com/gitcnk/Data/master/colleges2016.csv')
+colleges <- read.csv(file = 'https://raw.githubusercontent.com/gitcnk/Data/master/colleges2016.csv')
 
 variable_of_interest <- colleges$undergrads
 
@@ -187,9 +187,9 @@ The dataset we are looking at consists of ALL flights that departed from LaGuadi
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 
-flights <- read_csv(file = 'https://raw.githubusercontent.com/gitcnk/Data/master/FlightDelays2018.csv')
+flights <- read.csv(file = 'https://raw.githubusercontent.com/gitcnk/Data/master/FlightDelays2018.csv')
 
-variable_of_interest <- flights$`Departure delay (Minutes)`
+variable_of_interest <- flights$Departure.delay..Minutes.
 
 ggplot(flights) + 
   aes( x = variable_of_interest) +
@@ -364,8 +364,8 @@ to the entire population?
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, fig.height = 4, fig.width=12}
 set.seed(1234)
-mysample1 <- sample(flights$`Departure delay (Minutes)`, size = 30)
-mysample2 <- sample(flights$`Departure delay (Minutes)`, size = 100)
+mysample1 <- sample(variable_of_interest, size = 30)
+mysample2 <- sample(variable_of_interest, size = 100)
 
 ex_30 <- ggplot() +
             aes(x = mysample1) +

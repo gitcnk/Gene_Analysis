@@ -58,16 +58,16 @@ Suppose you have two independent sample from two population and you wan to test 
 Before we jump in, let's look at some descriptive statistics and plots about the two samples.  The dataset can be accessed using the following link:
 
 ```{r eval=FALSE, message=FALSE, warning=FALSE, include=TRUE}
-mydata <- read_csv(file = 'https://raw.githubusercontent.com/gitcnk/Data/master/very_large_sample.csv')
+large_data <- read.csv(file = 'https://raw.githubusercontent.com/gitcnk/Data/master/very_large_sample.csv')
 
 ```
 
 \
-The plots below clearly shows that the two samples are almost identical both in shape and spread.  Both samples have almost the same mean and median.
+As the following plot shows the two samples are almost identical both in shape and spread.  Both samples have almost the same mean and median.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, fig.height = 7, fig.width=13}
-load('hist_den_plot.rda')
-plot(hist_den_plot) 
+#load('hist_den_plot.rda')
+#plot(hist_den_plot) 
 
 ```
 
@@ -143,7 +143,7 @@ To drive this point home about p-values are good but humans are not, consider th
 
 The data:
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
-mydata <- read_csv(file = 'https://raw.githubusercontent.com/gitcnk/Data/master/FlightDelays2017.csv')
+mydata <- read.csv(file = 'https://raw.githubusercontent.com/gitcnk/Data/master/FlightDelays2017.csv')
 
 ```
 

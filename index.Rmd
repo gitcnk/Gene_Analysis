@@ -14,12 +14,13 @@ This book grew out of my class notes in Stat-2 and my observations of other inst
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 # Load the necessary libraries
-library(tidyverse)
+library(dplyr)
+library(ggplot2)
 library(latex2exp)
 library(mosaic)
 library(gridExtra)
 library(knitr)
-library(sjPlot)
+#library(sjPlot)
 library(KernSmooth)
 library(broom)
 library(reshape2)

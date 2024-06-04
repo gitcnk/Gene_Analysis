@@ -76,7 +76,7 @@ Let's plot the distribution of the following sample statistics:
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 # This code block generates plots for this chapter
 
-all_in_one <- read_csv(file = 'https://raw.githubusercontent.com/gitcnk/Data/master/Service_Times_all_in_one.csv')
+all_in_one <- read.csv(file = 'https://raw.githubusercontent.com/gitcnk/Data/master/Service_Times_all_in_one.csv')
 
 g_30 <- all_in_one %>% filter( group == 'n=30')
 

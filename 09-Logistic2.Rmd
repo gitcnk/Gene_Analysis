@@ -223,8 +223,8 @@ plot_ly(data = likelihood_data,
 
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
-Breast_cancer_model1 <- glm(status ~ radius, data = mydata, family = 'binomial')
-Breast_cancer_model1 <- glm(status ~ radius, data = bc_subset, family = 'binomial')
+Breast_cancer_model1 <- glm(as.factor(status) ~ radius, data = mydata, family = 'binomial')
+Breast_cancer_model1 <- glm(as.factor(status) ~ radius, data = bc_subset, family = 'binomial')
 
 kable(tidy(Breast_cancer_model1), format = 'html', digits = 3)
 ```

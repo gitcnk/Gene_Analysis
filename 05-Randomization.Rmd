@@ -23,7 +23,7 @@ Ref: Larson, Amin, Olsen, and Poth, Effect of Diet Cola on Urine Calcium Excreti
 \
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
-mydata <- read_csv(file = 'https://raw.githubusercontent.com/gitcnk/Data/master/ColaCalcium.csv')
+mydata <- read.csv(file = 'https://raw.githubusercontent.com/gitcnk/Data/master/ColaCalcium.csv')
 
 ```
 
@@ -230,7 +230,7 @@ As you can see in the above plot, IF the police department did not use race as a
 The final example of this chapter illustrates the flexibility of permutation tests.  In this example, we will see how to apply this technique to test hypotheses about linear models.  In particular, we will learn how to test a hypothesis about the slope coefficient in a simple linear regression model.  The dataset we use here contain information about pizzas.  You can access the dataset using the following command:
 
 ```{r eval=FALSE, message=FALSE, warning=FALSE, include=TRUE}
-Pizza <- read_csv(file = 'https://raw.githubusercontent.com/gitcnk/Data/master/Pizza.csv')
+Pizza <- read.csv(file = 'https://raw.githubusercontent.com/gitcnk/Data/master/Pizza.csv')
 
 ```
 

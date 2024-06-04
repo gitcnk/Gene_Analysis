@@ -90,10 +90,11 @@ The following plot shows the bootstrap sampling distribution of $\bar x$ constru
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 load('./Images_for_chapters/boot30plot.rda')
-plot(boot_plot)
+boot_plot
+        
 ```
 
-\
+
 
 One of the main reasons that we use the Bootstrap method is to get an idea of the uncertainty of our sample mean ($\bar x$).  In our case, the sample mean was 22.01.  But we wanted to find the uncertainty of this estimate which is nothing but the spread of the true sampling distribution of $\bar x$.  Since the bootstrap sampling distribution is an approximation of the true sampling distribution, we can calculate the spread of the bootstrap sampling distribution to get an estimate of the true standard error.  As the table below shows, this method is extremely accurate. 
 
@@ -140,7 +141,7 @@ It is virtually impossible to find the variance ($Var[ \ r\ ]$) of the above exp
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 load('./Images_for_chapters/corr_boot_plot.rda')
-corr_boot_plot
+#corr_boot_plot
 ```
 
 \
@@ -172,7 +173,7 @@ The following table contains data grouped by risk score.  In addition, informati
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 
-mydata <- read_csv('https://academics.hamilton.edu/mathematics/ckuruwit/Data/MIdata.csv')
+mydata <- read.csv('https://academics.hamilton.edu/mathematics/ckuruwit/Data/MIdata.csv')
 
 knitr::kable(mydata)
 
@@ -218,7 +219,7 @@ As before, we'll resample the 13 ratios with replacement and build the bootstrap
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 load('./Images_for_chapters/OE_boot_plot.rda')
-OE_boot_plot
+#OE_boot_plot
 ```
 
 \
@@ -273,7 +274,7 @@ service_CI_plot <- boot_plot +
                              subtitle = 'Service Time Data',
                              x = 'service time')
 
-service_CI_plot
+#service_CI_plot
 ```
 
 
@@ -302,7 +303,7 @@ corr_CI_plot <- corr_boot_plot +
                                                    x = 'correlation')
 
 
-corr_CI_plot
+#corr_CI_plot
 ```
 
 
@@ -324,7 +325,7 @@ OE_CI_plot <- OE_boot_plot +
                                                    x = 'Observed/Expected Death Ratio')
 
 
-OE_CI_plot
+#OE_CI_plot
 ```
 
 

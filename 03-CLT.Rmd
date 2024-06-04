@@ -130,7 +130,7 @@ The following plots shows relationship of $n$ with the shape and spread of the s
 \
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
-Binge_all_in_one <- read_csv(file = 'https://raw.githubusercontent.com/gitcnk/Data/master/Binge_all_in_one.csv')
+Binge_all_in_one <- read.csv(file = 'https://raw.githubusercontent.com/gitcnk/Data/master/Binge_all_in_one.csv')
 
 
 
