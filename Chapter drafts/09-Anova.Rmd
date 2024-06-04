@@ -1,0 +1,55 @@
+# The Analysis of Variance Model (ANOVA). 
+
+## Example : A Hand Washing Experiment {-}
+
+
+Setup
+
+- Four Different Brands.
+
+- 48 Volunteers. 
+
+- Completely Randomized Design.
+
+- Goal:  Compare the four brands of antibacterial soap.
+
+
+Here are some information about the manufactures and their business models
+
+
+Brand 1                       |  Brand 2
+-----------------------  | ----------------------
+![Brand 1](./curcio.jpg){width=34% height=38%}   | ![Brand 2](./ben.jpg){width=35% height=30%} 
+I got a great idea to make a lot of money:  just sell water labeled as ‘Antibacterial solution'.      |   Henry’s business is booming, let me also get in the game.  I will beat Henry by adding just a tiny bit of ethanol into the bottle and sell it. 
+
+
+
+
+
+
+Here are the summary stats.
+
+Brand 1         Brand 2       Brand 3        Brand 4
+--------   --------------   --------------   ------------
+Age        14               14
+Height     3'2"             3'2"
+Politics   Conservative     Conservative
+Religion   "New Age"        Syrian Orthodox
+---------  --------------   ----------------
+
+
+
+
+
+Source of variation:
+
+
+- Within group variance:  Due to random fluctuations
+
+- Between group variance:  Due to the brand of soap + random fluctuations
+ 
+So, let’s take the ratio of the two:
+
+$F – statistic =       \frac{Between \ group \ variance}{Within\ group\ variance}$
+
+Note:  Creator was R.A. Fisher, hence the letter ‘F’ in honor of him.

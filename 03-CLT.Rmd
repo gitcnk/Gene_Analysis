@@ -1,0 +1,202 @@
+# The Infamous 'n > 30 rule'
+
+The title of this chapter may be a bit confusing.  The formal title should be "The Central Limit Theorem".  But I wanted to make a point in this chapter about the misuses of this remarkable theorem.  Let's dive in.
+
+
+## Central Limit Theorem
+
+Before we formally introduce this theorem, let us first look at a motivating example.  Recall the service time example we saw in Chapter 2.  In that, we saw that the sampling distribution of $\bar x$ tend to follow a normal model as $n$ increases while the sampling distribution of the sample maximum does not show any normal behavior.  To put things in perspective, let us look at some plots.
+
+\
+
+**Sampling Distributions of the Sample Mean**
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+grid.arrange( plot_mean30, plot_mean50, plot_mean100, plot_mean300, nrow = 2, ncol = 2)
+```
+
+Carefully examine the plots above.  In particular, pay attention to the following:
+
+- shape 
+- spread (look at the scale of the x-axis)
+
+The behavior of the sample mean as $n$ increases has two noteworthy aspects.
+
+1. For larger samples, like $n > 100$, the sampling distribution of $\bar x$ is normal with the "center" being very close to the true mean of the population that we sample from.  
+
+2. The spread get's smaller as $n$ increases.
+
+Why is this important to us?
+
+First, the normal distribution is something that is easy to understand and we know how to calculate probabilities using the normal model.  Also, recall the "68-95-99.7% rule" which describes how the probabilities change with respect to the standard deviation (spread) of the model. So, anything that follows a normal model is good news for the statistician, because we know a LOT about this model.
+
+Second, the spread (standard deviation) decreases as $n$ increases.  This is encouraging because it ensures that for larger samples we are not too far off from the "center" of the distribution which happens to be very close to the true mean.  The following plot highlights how the sampling distribution concentrates around the true mean by ploting all 4 plots in the same x-scale.
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+plot_mean30_1 <- ggplot(data = g_30) +
+                    aes(x = mean) +
+                    geom_histogram(bins = 35) +
+                    labs(subtitle = 'Sample size n = 30',
+                         x = ' ') +
+                    xlim(8,35)
+
+plot_mean50_1 <- ggplot(data = g_50) +
+                    aes(x = mean) +
+                    geom_histogram(bins = 36) +
+                    labs(subtitle = 'Sample size n = 50',
+                         x = ' ') +
+                    xlim(8,35)
+
+plot_mean100_1 <- ggplot(data = g_100) +
+                      aes(x = mean) +
+                      geom_histogram(bins = 38) +
+                      labs(subtitle = 'Sample size n = 100',
+                           x = ' ') +
+                      xlim(8,35)
+
+plot_mean300_1 <- ggplot(data = g_300) +
+                      aes(x = mean) +
+                      geom_histogram(bins = 80) +
+                      labs(subtitle = 'Sample size n = 300',
+                           x = ' ') +
+                      xlim(8,35)
+
+grid.arrange( plot_mean30_1, 
+              plot_mean50_1, 
+              plot_mean100_1, 
+              plot_mean300_1, 
+              nrow = 2, ncol = 2)
+```
+
+
+
+In fact, These facts were discovered a long time ago and they are summarized in one of the celebrated theorems in statistics.  It is called the **Central Limit Theorem**.  It says, under some conditions, the sample mean $\bar x$ follows a normal model with center being at the true population mean and the spread decreases at a rate of $1/\sqrt n$.  We can denote this more succinctly as follows:  
+\[ \bar x \sim N(\mu , \frac{\sigma}{\sqrt n})\]
+
+We will explore this theorem further in this chapter.  But, let us first look at an example ( a statistic) that do not agree with the Central Limit Theorem.  This example helps us to understand the core idea of this theorem.  
+
+The plots below are sampling distributions of the sample maximum constructed from the same service time population (Example 2.1).  Carefully look at the shape and spread of these plots.  
+
+\
+
+**Sampling Distributions of the Sample Maximum**
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+grid.arrange( plot_max30, plot_max100, plot_max200, plot_max300, nrow = 2, ncol = 2)
+```
+
+You'll notice immediately that the shape does not look normal even for $n=300$.  Also, the spread does not decrease that much.  In fact, the spread is fairly constant across all 4 distributions.  This is NOT an accident.  The reason that this statistic, the sample maximum, does not obey the Central Limit Theorem is because it is NOT an average constructed from the sample.  This is the core idea of this theorem.  The normal behavior of the sampling distribution is ONLY applicable to sample averages.  Here is another example to demonstrate this.
+
+
+Suppose we want to know the percentage of binge drinkers in college campuses.  A good point estimate for this parameter is the sample proportion $\hat p$.  What is the sampling distribution of this statistic $\hat p$?  Let's create a small simulation to find this out.  Here are the steps:
+
+- Create a population of binge and non-binge drinkers
+
+- Draw a sample from this population, say of size $n=30$ and calculate $\hat p$.
+
+- Repeat the above step (sampling and calculation of $\hat p$) for a large number of times and plot the distribution of those $\hat p$ values.
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+
+population_size <- 1E6
+sample_size <- 20
+my_drinking_pop <- rbinom(population_size, 1, prob = 0.20)
+
+simulated_samples <- 1E3
+phat <- 0 #storage bucket
+
+for(i in 1:simulated_samples)
+{
+  mysample <- sample(my_drinking_pop, size = sample_size)
+  phat[i] <- sum(mysample)/sample_size
+}
+
+ggplot() +
+  geom_histogram(mapping = aes(x = phat),
+                 bins = 13) +
+  labs( title = 'Sampling Distribution of phat',
+        subtitle = 'Sample size n = 20',
+                     x = 'phat')
+```
+
+
+As you can see, for $n=20$ the sampling distribution of $\hat p$ is somewhat skewed.  We can increase the sample size and see what happens to the sampling distribution.  
+
+\
+
+The following plots shows relationship of $n$ with the shape and spread of the sampling distribution.   
+
+\
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+Binge_all_in_one <- read_csv(file = 'https://raw.githubusercontent.com/gitcnk/Data/master/Binge_all_in_one.csv')
+
+
+
+plot_prop20 <- ggplot(data = Binge_all_in_one) +
+                aes(x = V2) +
+                geom_histogram(bins = 13) +
+                labs(
+                     subtitle = 'Sample size n = 20',
+                     x = ' ')
+
+plot_prop30 <- ggplot(data = Binge_all_in_one) +
+                aes(x = V3) +
+                geom_histogram(bins = 17) +
+                labs(
+                     subtitle = 'Sample size n = 30',
+                     x = ' ')
+
+
+plot_prop50 <- ggplot(data = Binge_all_in_one) +
+                aes(x = V5) +
+                geom_histogram(bins = 23) +
+                labs(
+                     subtitle = 'Sample size n = 50',
+                     x = ' ')
+
+plot_prop100 <- ggplot(data = Binge_all_in_one) +
+                aes(x = V6) +
+                geom_histogram(bins = 32) +
+                labs(
+                     subtitle = 'Sample size n = 100',
+                     x = ' ')
+
+
+grid.arrange( plot_prop20, plot_prop30, plot_prop50, plot_prop100, nrow = 2, ncol = 2)
+
+```
+
+\
+
+It seems like the Central Limit Theorem is at play.  That is, the sampling distribution of $\hat p$ looks normal for large $n$.  But, we know that the theorem only applies to AVERAGES.  Now you might wonder is $\hat p$ an average?
+
+The answer is 'Yes'.  It is a proper average.  It does not look like one, but we can show why it is an average.  Let's denote a random sample of binge grinkers as $x_1, x_2, \ldots, x_n$.  Each $x_i$ is either a $1$ or $0$, depending on whether the person is a binge drinker or not.  Now if we write out the formula for the sample proportion $\hat p$ you'll see why it is an average.
+
+\
+
+\[ \begin{array}{ll}
+\hat p &= \frac{Number \ of \ binge \ drinkers \ in\  the\ sample}{Total\ number\ of\ people\ in\ the\ sample} \\
+&=  \frac{\sum_{i=1}^nx_i}{n}
+\end{array}
+\]
+
+As shown, above, $\hat p$ is an average and that's why the sampling distribution of $\hat p$ behaves according to the Central Limit Theorem (CLT).  It is now time to take stock of the important facts that we observed so far.  Consider the following summary table:
+
+\
+
+Statistic                      Obeys CLT       Shape at n = 30      Shape at n = 50
+---------------               --------------   ----------------     -----------------
+Sample Mean ($\bar x$)          Yes            Skewed               Skewed
+Sample Max                      No             not relevant         not relevant 
+Sample proportion ($\hat p$)    Yes            Skewed               Skewed
+
+
+\
+
+Now you probably see why I labeled this chapter as "The infamous n > 30 rule".  Most people believe that we can make use of the CLT if the sample size is "larger than 30".  But, as you saw in the above examples, this "rule" is extremely questionable.  You might object to this observation by saying: "Well, you used simulated data.  You could have cherry-picked your data to "prove" a point".  Certainly, this is a valid (and reasonable) objection.  Let us therefore look into some real datasets.
+
+
+
+

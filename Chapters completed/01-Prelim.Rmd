@@ -1,0 +1,28 @@
+# Some Preliminary Questions
+
+In your introductory statistics courses you have learned several fundemental ideas in statistics.  It is now time to revisit them and see how well you have understood them.  The following questions will help us do it.  Let's dive in.
+
+
+1.	What is statistical inference?
+
+2.	What is a parameter?
+
+3.	What is a statistic?
+
+4.	What is ‘good’ sample?
+
+5.   What is a sampling distribution?
+
+6.	What is a confidence interval?
+
+
+7.   How do you interpret a 95% confidence interval?  What is the true meaning of the 95%?    
+Hint: think about the idea of the capture rate
+
+
+8.   What is the Central Limit Theorem?
+
+
+9.  What is the role of the Central Limit Theorem in the construction of a confidence interval?
+
+

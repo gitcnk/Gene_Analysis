@@ -1,0 +1,326 @@
+
+# The Logistic Regression Model
+
+Very simply, this model is an extension of the classical regression model.  The primary goal of this model is to predict the probability of a binary outcome.  Let's begin with a very simple story.  I owe this to Andy Fields, a professor in England.  Here's what he said in one of his books (Discovering Statistics using R).  
+
+
+"Suppose we want to find out which variables are closely related in predicting whether a person is male or female.  We might measure laziness, pig-headedness, alcohol consumption, and number of burps that a person does in a day.  Using these characteristic variables we can build a logistic regression model and use it to predict whether a new person (who is not part of our original data) is likely to be a male or a female.  For example, if we pick a random person and discovered that this person scored high in laziness,  pig-headedness, alcohol consumption, and number of burps, then the logistic model might predict, based on this information, that this person is likely to be male.  Admittedly, it is unlikely that a researcher would ever be interested in the relationship between flatulence and gender (it is probably too well established by experience to warrant research)." 
+
+I hope you had a good laugh while reading the above quote.  Now let us look at a real example (a more practical one).  
+
+
+## The Failure of the Linear Model
+Suppose you are interested in finding whether a tumor is cancerous or benign and which variables are influential in determining the malignancy of the tumor.   The following table shows data from a collection of breast tumors with some characteristics of the tumor and whether they are malignant or benign (indicated by the variable **status**).  
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+
+## Breast cancer
+
+mydata <- read.csv('https://academics.hamilton.edu/mathematics/ckuruwit/Data/breastcancer2.csv')
+
+knitr::kable(head(mydata))
+
+workdata <- mydata %>% 
+  select(radius, status, concave.points)
+
+workdata$status_code <- recode(workdata$status, 'B' = 0, 'M' = 1)
+
+```
+
+This dataset is from the UC Irvine machine learning repository.  Please see the following webpage for more details of this data: https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+(Diagnostic)
+
+
+
+Suppose we want to know the connection between the radius of the cell and malignancy. The relationship of these two variables is shown in the following plot.
+
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+p1 <- ggplot() +
+        geom_jitter( data = workdata, aes(x = radius, y = status_code, col = status), 
+                     height = 0.05,
+                     width = 0.1,
+                     alpha = 0.3) +
+        ylim(c(-0.1,1.1)) 
+
+p1 +  labs(title = 'Risk of Cancer vs. radius of the Cells',
+           subtitle = 'Data source: UC Irvine Data Repository',
+           x = 'Radius of the Cell',
+           y = 'Probability of Malignancy') 
+
+```
+
+As you can see, cells that are 'big' (large radius) tend to be malignant.  If we need to utilize this fact to estimate the probability of malignancy of a cell we can create a simple table by partitioning the x-axis into bins and calculate the proportion of malignant cells in each bin.  This will give us a very simple estimate (see table below) of the probability of malignancy of a cell and how it is related to the radius.  
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+workdata$group <- cut(workdata$radius, breaks = seq(5,30, by = 1))
+
+status_table <- table( workdata$status, workdata$group )
+
+status_proportions <- prop.table(status_table, margin = 2)
+#status_proportions[2,]
+```
+
+
+Radius         (6,7]   (7,8]   (8,9]    (9,10]   (10,11]  (11,12]    (12,13]    (13,14]   (14,15]   (15,16]   (16,17]  (17,18]  (18,19]   (19,20] 
+-----------    ------  -----   -------  -------  -------  -------    -------    -------   -------   -------   -------  ------   -------   -------
+Proportion      0       0       0         0      0.026     0.058      0.080      0.244    0.322      0.813    0.783     0.962    1        1
+
+
+
+
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+
+fit <- locpoly( x = workdata$radius, y = workdata$status_code, bandwidth = 0.5)
+
+prop_data <- data.frame(x = seq(5,29), y = status_proportions[2, ])
+fit_data <- data.frame(fit)
+
+```
+
+
+
+
+
+### Plot with Estimates of Probability (local averages) {-}
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+p2 <- p1 + geom_point( data = prop_data, aes(x = x, y = y)) +
+           labs(title = 'Data with Local Proportions',
+                x = 'Radius',
+                y = 'Probability of Malignancy') 
+p2
+
+p2_1 <- p2 +  theme(legend.position = 'none') 
+```
+
+The most important thing to pay attention in the above plot is the range of the local proportions.  By definition, all proportions are bounded between [0,1].  Therefore, any model that tries to capture the trend of these proportions has to abide by this restriction.  Suppose we try to use the classical simple linear model to capture this trend.  You will immediately see why this model is not suitable in this context as shown in the following plot.
+
+      
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+Lin_fail <- ggplot(workdata) + aes(x = radius, y = status_code) +
+              geom_jitter( aes(col = status), 
+                                 height = 0.05,
+                                 width = 0.1,
+                                 alpha = 0.3) +
+              geom_point( data = prop_data, aes(x = x, y = y)) +
+              geom_smooth(method = 'lm', 
+                          se = FALSE, 
+                          fullrange = TRUE,
+                          col = 'red',
+                          size = 0.5) +
+              ylim(-0.05,1.05) +
+              labs(title = 'Failure of the linear model',
+                   x = '',
+                   y = '') +
+              theme(legend.position = 'none')
+
+Lin_fail + labs(title = 'Failure of the linear model',
+                 x = 'Radius',
+                 y = 'Probability of Malignancy') +
+           theme(legend.position = 'right')
+```
+
+```{}
+The linear model may produce non-sencical predicted values.  That is, probabilities
+bigger than 1 or less than 0.  For example, in this instance, for radius values bigger
+than 20 or so you'll end up with predicted probabilities larger than 1!
+```
+
+
+## Construction of a New Model
+
+**How to overcome this issue?**
+
+
+One reasonable approach might be to smooth out the local proportions (black dots) as shown in the following plot.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+p3 <- p2 + geom_line( data = fit_data, aes(x = x, y = y), col = 'red') +
+           labs(title = 'Connecting the Dots Roughly',
+                x = 'Radius',
+                y = 'Probability of Malignancy') 
+
+p3
+p3_1 <- p3 +  theme(legend.position = 'none') 
+```
+
+This approach seem to be quite good.  But it has some shortcomings.
+
+1. On rare occasions we might end up with probabilities bigger than 1 (or less than 0)
+
+2. It does not allow us to adequately quantify the effect of radius on the probability of malignancy.  
+
+Let's unpack issue number 2 above.   Consider the following dialog:
+
+---
+
+
+**You:**  I'm not sure what you mean in issue number 2 above.
+
+**Me:**: What I mean by this is we are unable to answer questions like, "how much the probability might increase (or decrease) for different values of the $X$ variable?".  
+
+**You:** Yes we can.  We can look at the smooth line and eyeball (roughly estimate) the difference in probabilities.   
+
+**Me:** Sure, that's true.  But it is a very rough estimate.  If you are dealing with a life threatening situation like malignancy of a tumor, don't you think you'd rather have a more precise method than just eyeballing?
+
+**You:** I guess that's reasonable.
+
+**Me:** We need something like the simple linear regression model $\hat Y = a + bX$ where the "effect" of $X$ is adequately captured by a model parameter (like the slope of the line).  The coefficient of $X$, $b$, is a summary value of the "effect" of $X$ on the response $Y$.  We need a similar model that can adequately capture (and summarize) the relationship between $X$ and $Y$.  
+
+**You:** So how do we build such a model?
+
+**Me:**  That's what we are going to learn in the rest of this chapter.  Let's dive in.
+
+---
+
+What we need is a model which does not exceed 1 for large $X$ values and which does not go below 0 for small $X$ values.  There are several mathematical functions that obey these restrictions.  One such function is the **Logistic** function.  The mathematical equation for this function and its plot is given below:
+\[ f(x) = \frac{e^x}{1 + e^x} \]
+ 
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+x<- seq(-10,10)
+logistic <- function(x, a, b)
+{
+  exp(a + b*x) / (1 + exp(a + b*x))
+}
+
+Logistic1 <- ggplot(data.frame(x=c(-8, 8))) +
+                aes(x) + 
+                stat_function(fun = logistic, args = c(a = 0, b = 1))
+
+Logistic2 <- ggplot(data.frame(x=c(-8, 8))) +
+                aes(x) + 
+                stat_function(fun = logistic, args = c(a = 0, b = 2))
+
+Logistic3 <- ggplot(data.frame(x=c(-8, 8))) +
+                aes(x) + 
+                stat_function(fun = logistic, args = c(a = 0, b = 6))
+
+Logistic4 <- ggplot(data.frame(x=c(-8, 8))) +
+                aes(x) + 
+                stat_function(fun = logistic, args = c(a = 0, b = -0.5))
+
+
+Logistic1 + labs(title = 'The Standard Logistic Function',
+                 x = 'x',
+                 y = 'f(x)')
+
+#grid.arrange(Logistic1, Logistic2, Logistic3, Logistic4, nrow = 2, ncol = 2)
+```
+
+This function seems to be good solution for our problem.  Let's try to fit this curve to our data.  
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+data_with_logistic1 <- p2  +
+                           
+                           stat_function(data = data.frame(xx = c(-5, 5)), 
+                                         aes(xx), 
+                                         fun = logistic, 
+                                         args = c(a = -0, b = 1),
+                                         col = 'red',
+                                         inherit.aes = FALSE,
+                                         xlim = c(-5,5)) +
+                           labs(title = 'Data with the Standard Logistic Curve',
+                                subtitle = 'NOT A GOOD FIT :(',
+                                x = 'Radius',
+                                y = 'Probability of Malignancy') +
+                           theme(legend.position = 'right') 
+                          
+data_with_logistic1  
+```
+
+As you can see, the curve does not fit the data at all.  The main issue is that it is centered at the wrong place.
+
+    
+```{}
+Q: How to shift this curve to the right?
+
+Answer:  We need some type of an "intercept" parameter similar to what we have in a linear model.
+```
+
+Let's shift this curve to the right by 15 units.  The equation of this new curve and its corresponding plot is given below:
+
+\[ f(x) = \frac{e^{-15 + x}}{1 + e^{-15 + x}} \]
+
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+data_with_logistic2 <- p2  +
+                           
+                           stat_function(data = data.frame(xx = c(5, 30)), 
+                                         aes(xx), 
+                                         fun = logistic, 
+                                         args = c(a = -15, b = 1),
+                                         col = 'red') +
+                           labs(title = 'Data with a better looking Logistic curve',
+                                x = 'Radius',
+                                y = 'Probability of Malignancy') +
+                           theme(legend.position = 'right') 
+                          
+data_with_logistic2  
+```
+
+**Note:**  You might wonder why we have -15 instead of 15.  This is not an error.  In fact, this is one of your HW problems.  Hint:  Think about a much simpler function like $f(x) = x^2$.  How would you shift this, say 15 units to the right (x-direction)?
+
+
+    
+As the above plot shows this new curve seem to fit the data really well.  Perhaps, we can adjust the the steepness of the curve to fit the data points (local proportions) in the mid section.  We can do that by introducing a parameter (like a "slope") to the curve as shown in the following equation and the plot:
+
+\[ f(x) = \frac{e^{-15 + 1.05x}}{1 + e^{-15 +1.05x}} \]
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+data_with_logistic3 <- p2 + stat_function(data = data.frame(xx = c(5, 30)), 
+                                          aes(xx), 
+                                          fun = logistic, 
+                                          args = c(a = -15, b = 1.05),
+                                          col = 'blue') +
+                           labs(title = 'An even better fitting Logistic curve',
+                                x = 'Radius',
+                                y = 'Probability of Malignancy') +
+                           theme(legend.position = 'right') 
+
+data_with_logistic3
+```
+
+
+Now you might be wondering whether we have to use this trial an error approach in fitting this curve to the data.  The answer is: No.  We have a systematic way to find the location and the shape of the logistic function.  That is the focus in the next section.
+
+
+
+```{r eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+
+p4 <- ggplot(workdata) + aes(x = radius, y = status_code) +
+        geom_jitter( aes(col = status), 
+                           height = 0.05,
+                           width = 0.1,
+                           alpha = 0.3) +
+        geom_point( data = prop_data, aes(x = x, y = y)) +
+        geom_smooth(
+                    method = 'glm', 
+                    method.args = list(family = 'binomial'),
+                    se = FALSE, 
+                    fullrange = TRUE,
+                    col = 'red') +
+        labs(title = 'A Better Model: Logistic',
+             x = '',
+             y = '') +
+        theme(legend.position = 'none') +
+        ylim(-0.05,1.05) 
+```
+      
+      
+
+```{r eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+#grid.arrange(p2_1,Lin_fail,p3_1,p4, nrow = 2, ncol = 2)
+
+grid.arrange(p2_1,Lin_fail,data_with_logistic2,data_with_logistic3, nrow = 2, ncol = 2)
+
+```
+
+

@@ -1,28 +1,37 @@
-
---- 
-title: "Template for Notes"
-author: "CK "
-date: "`r Sys.Date()`"
+---
+title: "Statistics: A Critical Look"
+#author: "CK"
+output: bookdown::gitbook
 site: bookdown::bookdown_site
-documentclass: book
-description: |
-  Template for Notes
+
 ---
 
-# Introduction
-My templates for notes 
-
-
-
-
+# Preface {-}
+This book grew out of my class notes in Stat-2 and my observations of other instructors around the world. I claim no originality in my thoughts or examples.  Almost all of them are influenced, shaped, and refined by listening to other people. I thank ALL of them for their inspiring lectures and insightful examples which made this work possible.
 
 
 
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
-# Set up packages and data 
+# Load the necessary libraries
+library(tidyverse)
+library(latex2exp)
+library(mosaic)
+library(gridExtra)
+library(knitr)
+library(sjPlot)
+library(KernSmooth)
+library(broom)
+library(reshape2)
 
-
-# mydata <- read.csv('')
-
+# User defined functions
+colorize <- function(x, color) {
+  if (knitr::is_latex_output()) {
+    sprintf("\\textcolor{%s}{%s}", color, x)
+  } else if (knitr::is_html_output()) {
+    sprintf("<span style='color: %s;'>%s</span>", color, 
+      x)
+  } else x
+}
 ```
+

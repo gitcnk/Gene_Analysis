@@ -1,0 +1,161 @@
+## Extending the Logistic Model
+
+## Case Studies
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+## Age and Heart Attacks (fake data, I made it up)
+
+Heart_data <- read_csv(file =           'https://raw.githubusercontent.com/gitcnk/Data/master/Heart_Attacks.csv')
+
+HA <- ggplot() +
+        geom_jitter(data = Heart_data, 
+                    aes(x = Age, y = Heart_Attack, col = as.factor(Heart_Attack) ),                          height = 0.05,
+                    alpha = 0.3) +
+        scale_color_discrete(name='Status', labels = c('None','Heart Attack')) +
+        labs(title = 'Risk of Heart Attacks ',
+             subtitle = 'Sample of Patients with High Cholesterol',
+             y = 'Probability of Heart Attack')
+HA
+
+```
+
+
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+status_table <- table( Heart_data$Heart_Attack, Heart_data$group )
+
+status_proportions <- prop.table(status_table, margin = 2)
+
+fit <- locpoly( x = Heart_data$Age, y = Heart_data$Heart_Attack, bandwidth = 1.3)
+
+
+prop_data <- data.frame(x = seq(33,65, length.out = 31), y = status_proportions[2, ])
+fit_data <- data.frame(fit)
+
+```
+
+Plot with local averages
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+HA + geom_point( data = prop_data, aes(x = x, y = y)) 
+```
+
+
+Plot with the smoothed curve.
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+HA + geom_point( data = prop_data, aes(x = x, y = y)) +
+     geom_line( data = fit_data, aes(x = x, y = y), col = 'red') 
+```
+
+
+
+
+**Me:** Also, there is another issue.  When you have more than one $X$ variables, then you can not visualize the data and the estimates in a plot.  For example, suppose you what to model the probability using 3 variables.  Then it is impossible to visualize the data.  Do you know how to draw a 4D plot?
+
+**You:**  Why 4D?  You said we 3 $X$ variables, so why cant we use a 3D plot?
+
+**Me:**  Don't forget the response variable, $Y$, hence the $4^{th}$ dimension.  If I push it even further, what if you have 10 $X$ variables, then you need a 11D plot!!
+
+**You** I see what you mean.
+
+**Me:** We encountered this same issue in the previous chapter on multiple regression models.
+
+
+
+
+
+
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(Sleuth3)
+ford_tire_data <- ex2018
+ford_tire_data$status_code <- recode(ford_tire_data$Cause, 'Tire' = 1, 'NotTire' = 0)
+str(ford_tire_data) # display the STRUCTURE of a data frame
+
+ford <- ford_tire_data %>% filter(Make =='Ford')
+other <- ford_tire_data %>% filter(Make !='Ford')
+
+
+
+fordplot <- ggplot() +
+            geom_jitter(data = ford,
+                        aes( x = VehicleAge, y = status_code, col = Cause),
+                        height = 0.1 ) +
+            labs(title = 'FORD') +
+            theme(legend.position = "bottom")
+
+
+
+t <- table(ford$VehicleAge, ford$Cause)
+tt <- prop.table(t, margin = 1)
+ford_prop_data <- data.frame( x = seq(0,5), y = tt[,2])
+
+p1 <- fordplot + geom_point(data = ford_prop_data, aes(x = x, y = y))
+p1
+
+otherplot <- ggplot() +
+                geom_jitter(data = other,
+                            aes( x = VehicleAge, y = status_code, col = Cause),
+                            height = 0.1 ) +
+                labs(title = 'OTHER')  +
+                theme(legend.position = "none")
+
+
+t <- table(other$VehicleAge, other$Cause)
+tt <- prop.table(t, margin = 1)
+other_prop_data <- data.frame( x = seq(0,5), y = tt[,2])
+
+p2 <- otherplot + geom_point(data = other_prop_data, aes(x = x, y = y))
+p2
+
+
+ggplot() + 
+  geom_point(data = ford_prop_data, aes(x = x, y = y), col = 'red') +
+  geom_point(data = other_prop_data, aes(x = x, y = y), col = 'blue') +
+  labs(title = 'The Risk of Accidents Linked to Tires' ,
+       subtitle = 'Ford (red dots) vs. Others (blue dots)', 
+       x = 'Vehicle Age',
+       y = 'Proportion of Accidents')
+  
+```
+
+
+ Predicted risk using the Logistic model.
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(ford_tire_data) +
+  aes(x = VehicleAge, y = status_code, col = Make) +
+  geom_jitter(width = 0.1,
+              height = 0.1) +
+  geom_smooth(method = 'glm', 
+              method.args = list(family = 'binomial'),
+              se = FALSE, 
+              fullrange = TRUE)
+
+
+
+
+m1 <- glm(Cause ~ VehicleAge + Make + Passengers, 
+         family = 'binomial',
+         data = ford_tire_data)
+#summary(m1)
+kable(tidy(m1), format = 'html', digits = 3)
+
+m2 <- glm(Cause ~ VehicleAge  + Passengers, 
+         family = 'binomial',
+         data = ford_tire_data)
+#summary(m2)
+kable(tidy(m2), format = 'html', digits = 3)
+
+
+logLik(m1)
+logLik(m2)
+
+
+
+```
+
+
+

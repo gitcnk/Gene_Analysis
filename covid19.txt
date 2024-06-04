@@ -1,0 +1,8 @@
+
+# https://github.com/aatishb/covidtrends#credits
+
+# https://github.com/CSSEGISandData/COVID-19
+
+# https://github.com/nytimes/covid-19-data#license-and-attribution
+
+

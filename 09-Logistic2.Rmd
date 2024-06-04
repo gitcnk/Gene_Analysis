@@ -1,0 +1,233 @@
+
+
+
+## Fitting a Logistic Model
+
+The logistic model that we fit to the data has the following general form:
+
+
+\[ f(x) = \frac{e^{a + bx}}{1 + e^{a + bx}} \]
+
+The coefficients $a$ and $b$ are called model parameters.  As you saw earlier these two coefficients are like two dials which controls two attributes of the curve.  
+
+Coefficient      Role
+-------------    --------
+$a$              Controls the location of the curve.  It centers the curve where the data is.
+$b$              Controls the steepness (shape) of the curve.
+
+Similar to what we did earlier (using trial and error), our goal is to find the "curve of best fit".  The technique we use is called the maximum likelihood estimation.  Let's try to get our feet wet on this new concept.
+
+
+### Maximum Likelihood Estimation {-}
+
+This is one of the celebrated and time tested techniques in statistics.  It is an intuitive method with many desirable properties and it is easy to implement using any statistical software.  Let's look at some toy examples to understand the fundamentals behind this technique.   
+
+`r colorize('Example 1:', color ='red')`
+
+Cookie jar, number of chocolate chip cookies, $\theta$, is either 6 or 2. That is, the set of possible values for $\theta$ is $\{6,2\}$.  We call this set the parameter space of $\theta$.  
+
+$\theta = \{6,2\}$ 
+
+Now suppose you picked a one cookie at random and found out that it is a chocolate chip cookie.  Based on this sample (`evidence') what is the most likely value of $\theta$?
+
+If you guessed 6 you're correct.  Our intuition tells us that it is more likely that we get a chocolate-chip cookie if $\theta$ were 6 than if $\theta$ were 2.
+
+We can make this argument more precise by calculating the likelihood of getting a chocolate-chip cookie for the two values of $\theta$.
+
+\[P[ X = CC\ cookie\ |\ \theta = 6] = 6/10  \]
+
+\[P[ X = CC\ cookie \ |\ \theta = 2] = 2/10  \]
+
+Based on this sample of size 1, our choice for $\theta$ is 6.
+
+Let's make it more interesting.  What if we draw two cookies **without replacement** and found out that both of them are NOT chocolate chip cookies.  Now what is your guess for the value of $\theta$ ?  
+
+Again, we can calculate the probabilities for this outcome under the two scenarios $\theta = 6$ and $\theta = 2$.
+
+\[P[ X_1 = NotCC, X_2 = NotCC \ |\ \theta = 6] = (4/10) . (3/9) =  0.13 \]
+
+\[P[ X_1 = NotCC, X_2 = NotCC \ |\ \theta = 2] = (8/10) . (7/9) = 0.80 \]
+
+Now based on this sample of size 2, our choice for $\theta$ is 2.
+
+
+I hope now you'll start to see a pattern.  We pick a value for the parameter $\theta$ based on the likelihood of the observed (realized) outcomes in our sample.  That is, we choose the value (of $\theta$) to make our observed outcome most likely.  This is the principle behind maximum likelihood estimation.  Let's look at another example.
+
+
+---
+
+
+`r colorize('Example 2:', color ='red')`
+
+Suppose I give you a coin from my country Sri Lanka and told you that this is an unbiased coin. Knowing who I am, you might suspect whether I'm being truthful about this coin.  Here is a picture of my coin. 
+
+```{r , echo=FALSE, fig.cap="Two sides of a Sri Lankan Coin. We label the side with the emblem (left picture) as heads.", out.width = '60%', fig.align = 'center'}
+  knitr::include_graphics("./Images_for_chapters/ruppe_coin.jpg")
+```
+
+Suppose you are interested in the unbiased nature of my coin.  If we denote $\theta$ as the probability of heads, then $\theta$ could be any value between [0,1].  If I'm being truthful, you'd say $\theta = 0.5$ (unbiased coin).  You decided to test my claim of unbiasedness by flipping it 10 times.  Suppose after 10 flips you got the following sequence of heads and tails.
+\[HHHTHHTTHH\]
+
+Based on this evidence, what is the most likely value of $\theta$?
+
+You might guess $\theta$ to be 0.7.  If you did, you effectively found the maximum likelihood estimate of $\theta$.  Recall that we choose the value of $\theta$ that maximizes the likelihood of the observed (realized) sample.  You might wonder, could there be any other value (other than 0.7) which yields a higher likelihood for this observed outcome $HHHTHHTTHH$.  Let's check with some other values of $\theta$.
+
+---
+
+
+ $\theta$         Probability of $HHHTHHTTHH$ outcome
+----------     ---------------------------------------
+0.1                        0.00000
+0.2                        0.00000
+0.3                        0.00007
+0.4                        0.00035
+0.5                        0.00097
+0.6                        0.00179
+0.7                        0.00222
+0.8                        0.00167
+0.9                        0.00047
+
+
+**How did I calculate the above probabilities?**
+
+
+**Answer**
+
+If we denote the probability of heads as $\theta$ and denote $y_i=1$ if the $i^{th}$ flip is a head and $y_i=0$ if the $i^{th}$ flip is a tails, then we can write the likelihood of the observed outcome as follows:
+
+\[P[HHHTHHTTHH] = \prod_{i=1}^{10} \theta^{y_i}(1-\theta)^{1-y_i} = \theta^7(1-\theta)^3\]
+
+- Note 1: The symbol $\prod_{i=1}^{10}$ is the product operator.  It is a notation that we use to simplify things.
+
+- Note 2: The above probability is a function of $\theta$.  We call this function, the likelihhod function, $L(\theta)$.
+
+Then, by plugging in values $0.1,0.2, \ldots, 0.9$ to the above equation yields the corresponding probabilities.  
+
+----
+
+In fact, we can be even more precise.  If you plot the above function $L(\theta$) you'll get the  following plot:
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(latex2exp)
+bernoulli_likelihood <- function(theta,n,y)
+{
+  (theta^y)*(1-theta)^(n-y)
+}
+
+bernoulli_likelihhod_plot <- ggplot(data.frame(x=c(0,1))) +
+                                  aes(x) + 
+                                  stat_function(fun = bernoulli_likelihood, 
+                                                args = c(n = 10, y = 7))
+
+bernoulli_likelihhod_plot + geom_vline(xintercept = 0.7, linetype = 'dashed', col = 'red') +
+                            labs(title = TeX('Likelihood function $L(\\theta) = \\theta^7(1-\\theta)^3$'),
+                                 subtitle = 'Corresponds to the sample HHHTHHTTHH' ,
+                                 x = TeX('$\\theta$'),
+                                 y = 'Probability of the observed sample')
+```
+
+As shown in the above plot, the maximum of the likelihood function $L(\theta)$ occurs at $\theta = 0.7$.
+
+
+
+`r colorize('Example 3:', color ='red')`
+
+In this example, let's extend the intuition of the maximum likelihood estimation to the logistic model.  Consider the following simple dataset, a subset of breast cancer dataset that you saw in earlier examples.
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+mydata <- read.csv('https://academics.hamilton.edu/mathematics/ckuruwit/Data/breastcancer2.csv')
+set.seed(1234)
+bc_subset <- sample_n(mydata, size = 20)
+bc_subset$status_code <- recode(bc_subset$status, 'B' = 0, 'M' = 1)
+
+bc_subset_plot <- ggplot() +
+                    geom_jitter( data = bc_subset, aes(x = radius, y = status_code, col = status), 
+                                 height = 0.05,
+                                 width = 0.1) +
+                    ylim(c(-0.1,1.1)) +  
+                    labs(title = 'Risk of Cancer vs. radius of the Cells',
+                         subtitle = 'Subset of only 20 patients',
+                         x = 'Radius of the Cell',
+                         y = 'Probability of Malignancy') 
+bc_subset_plot
+```
+
+**How to use the Maximum Likelihood method to find the correct logistic curve?**
+
+Recall my Sri Lankan coin flipping example.  The breast cancer data can be thought of as a special coin flipping experiment where the probability of malignancy, $p$, is dependent on the radius of the cell.  That is, $p$ is a function of radius.  In particular, we claim that this probability can be modeled by a logistic curve.  That is,  
+
+\[ p(radius) = \frac{e^{a + b(radius)}}{1 + e^{a + b(radius)}}\]
+
+If you look at the above plot you can see that there are 6 malignant cases and 14 benign cases.  So we can write down the likelihood of observing the outcome $[\  MMMMMM\ BBBBBBBBBBBBBB \ ]$.  If we denote $y_i=1$ for malignant cases and $y_i=0$ for benign cases, we can write the required probability as follows:
+
+\[P[\  MMMMMM\ BBBBBBBBBBBBBB \ ] = \prod_{i=1}^{20} p(radius_i)^{y_i}(1-p(radius_i))^{1-y_i} \]
+
+- Note 1: The symbol $\prod_{i=1}^{20}$ is the product operator.  It is a notation that we use to simplify things.
+
+- Note 2: The outcome of this expression is a mess.  But, if you look at it carefully it is a simple function of 3 things:  The model parameters $a$ and $b$, and the radius values (data) of the 20 patients.
+
+In order to get a better sense, take a look at the plot below.  It is the plot of the likelihood for this dataset.  Rotate the plot using your mouse to see where the likelihood is maximized.
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+a=seq(-18,-15,0.01)
+b=seq(0.5,1.8,0.01)
+
+n=20
+
+out=matrix(0,nrow=length(a),ncol=length(b),dimnames = list(a,b))
+                                                           
+
+for(i in 1:length(a))
+{
+  for(j in 1:length(b))
+  {
+    eta <- exp(a[i] + b[j]*bc_subset$radius)
+    p1 <- eta/(1+eta)
+    p2 <- 1-p1
+    
+    temp1 <- p1^bc_subset$status_code
+    temp2 <- p2^(1-bc_subset$status_code)
+    
+    temp3 <- temp1*temp2
+    
+    out[i,j] <- prod(temp3)
+
+  }
+}
+
+
+likelihood_data <- melt(out)
+
+library(plotly) 
+# do not move this package, this has a conflict with 
+# latex2exp package.  They both have a function called
+# Tex.
+
+plot_ly(data = likelihood_data, 
+        x = ~Var1, 
+        y = ~Var2, 
+        z = ~value) %>%
+  add_markers(size = 0.3) %>%
+  layout(
+    title = "Likelihood Function for the Breast Cancer Example",
+    scene = list(
+      xaxis = list(title = "a"),
+      yaxis = list(title = "b"),
+      zaxis = list(title = "Likelihood")
+    ))
+
+```
+
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+Breast_cancer_model1 <- glm(status ~ radius, data = mydata, family = 'binomial')
+Breast_cancer_model1 <- glm(status ~ radius, data = bc_subset, family = 'binomial')
+
+kable(tidy(Breast_cancer_model1), format = 'html', digits = 3)
+```
+
+
+

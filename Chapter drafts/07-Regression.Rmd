@@ -1,0 +1,344 @@
+# The Regression Model
+
+
+
+## Interpretations of regression coefficients in simple linear regression{-}
+
+Example 1: House prices and area(sq.ft.). - 
+(dataset: house data1)
+
+The model ---> Predicted Price = 30000 + 102*Area
+
+Let us see how to interpret the “slope” coefficient:
+
+Not cool interpretation 1:
+The model predicts that for one unit increase in ‘area’, the price increases by $102 on average.
+
+Not cool interpretation 2:
+The model predicts that for 100 sq.ft increase in ‘area’, the price increases by $10,200 on average.
+
+In this one, we used a proper scale (unit) that is reasonable for discussing area of a house.  But, the phrase “For 100 sq.f.t increase, the price increase by…….” still implies a CAUSAL relationship between price and area.
+
+A more reasonable interpretation:
+
+Before we begin, ALWAYS consider the following:
+What is represented by each data point: 
+e.g. a house, a person, a country, etc.
+Realize that regression models ALWAYS represent AVERAGES.  That is, a conditional means.  
+
+For example, with the house data, the model (regression line) represents the AVERAGE price of houses for a given (conditional) value of ‘area’.    
+$E( Price\ |\ Area)$
+
+The last point to remember is how the data is collected. 
+i.e. observation study vs. randomized experiment.
+This will determine whether we can or can not make a causal interpretation. 
+
+Keeping these in mind let’s write a reasonable interpretation for the slope:
+
+Houses that differ in area by 100 sq.ft. differ by $10,200 in their average prices, [with larger houses being more expensive]
+
+
+
+## Recap of simple linear regression{-}
+
+Example 1: House prices and area(sq.ft.). - 
+(dataset: house data1)
+
+The model ---> Predicted Price = 16208 + 102*Area
+
+How to interpret this model coefficients?
+
+The y-intercept:
+
+For a mathematician, this is simply the value of y when X=0.  But for a statistician it is not that simple.  We immediately see that when X (‘Area’) = 0, then there is no house!  So we have to think about this carefully. 
+
+We said, perhaps, this is the price of the land and/or other things that are not related to the square footage of the house (e.g. swimming pool).
+
+BUT, in the Saratoga houses dataset the y-intercept is negative, which is not consistent with the above interpretation. i.e. the above claim does not generalize.  In other words you can’t defend your model. 
+
+Moral of the story:  Our interpretations of model coefficients should be generalizable to many similar datasets.  
+The “slope” coefficient:
+
+For a mathematician, this is the increase in Y for a unit change in X.
+
+For a (not so careful) statistician:
+
+The model predicts that for one square foot increase in area , the price increases by $102 on average.
+
+The model predicts that for 100 square feet increase in ‘area’, there is an associated increase in price by $102 on average.
+
+The above two statements hints at a causal relationship between the two variables, which we CAN NOT establish with observational studies.
+
+
+
+A careful statistician will (and should) qualify the above statements.  For example, we could say:
+
+
+Houses that differ in area by 100 sq.ft. differ by $10,200 in their average prices (with larger houses being more expensive).  However, this difference CAN NOT be attributed to the difference in square footage only.  There are other variables the model did not take into account, hence this difference could be due to a combination of square footage and those other factor.
+
+This answer is reasonable, but not very satisfying to a skeptic.
+A skeptic would ask a series of follow up questions along the lines of:
+
+Could you elaborate?  
+
+What other factors might we need to fully (or partially) explain this price difference?  
+
+How would those factors affect the price?  
+
+Would they increase or decrease the price?
+
+
+## How to interpret regression coefficients in multiple regression? {-}
+
+Example 1: House prices (dataset: house data1)
+
+Suppose we build a model to predict price (Y) based on square footage(X1) and the number of bedrooms (X2).
+
+Y-hat = -36280 + 84*Area + 20629*Bedrooms
+where Y-hat (Predicted Price). 
+
+
+
+Now, let’s see how to interpret the coefficient of the variable “Bedrooms”.
+
+Bumper sticker version:
+The model predicts that for one extra bedroom the price increases by $20629 on average, HOLDING the variable “Area” constant.
+
+
+There are two issues in the above interpretation:
+Implies (or hints at) causation
+The phrase “holding other variables constant” can (most likely will) lead to silly interpretations.
+“Silliness”
+
+Example 1: Kids age 10 -15
+
+Y = Time to run 100 meters.
+X1 = Age
+X2 = Height
+X3 = Weight
+
+Try to interpret the coefficient of “Age”
+
+Example 2: Men age 50-70
+
+Y = Risk of heart attack (as a percent)
+X1 = Age
+X2 = Cholesterol level
+X3 = Blood pressure
+
+Try to interpret the coefficient of “Cholesterol level”
+
+Moral of the story:
+Because the variables are correlated, you can not increase (or decrease) one variable, HOLDING the others constant.
+
+
+Back to the original example: House prices
+Y-hat = -36280 + 84*Area + 20629*Bedrooms
+where Y-hat (Predicted Price). 
+
+
+
+
+Somewhat ‘OK’ interpretation 1:
+
+When comparing houses that are similar in square footage (Area) but differ in one bedroom, the model predicts an average price difference of about $20,629. 
+
+
+
+Somewhat ‘OK’ interpretation 2:
+
+After ADJUSTING for the variable “Area”, the model predicts an average price difference of $20,629 for houses that differ in one bedroom.
+
+
+
+
+
+
+The true meaning:
+
+Suppose the model is:
+
+ $\hat Y = a + b_1X_1 + b_2X_2 + b_3X_3 + b_4X_4$
+
+and say we need to interpret the coefficient b2 of X2  
+
+
+b2 is the slope when Y (after linearly adjusted for X1,X3 and X4) is regressed with X2 ( after linearly adjusted for X1,X3 and X4).
+
+
+“There is no substitute for facing the facts in detail.” - 
+J. Tukey and F. Mosteller  
+
+If we use this in our example, we get something along the lines of:
+
+“After we linearly adjust  Price and ‘Bedroom’ variables for  the effects of ‘Area’ and regress them (adjusted Price vs adjusted Bedroom), the slope of that regression line is 20,629.”
+
+
+Some other example of "adjusting":
+
+- Example 1:
+Higher income individuals more likely to vote Republican after controlling (adjusting) for the “effects” of education, race, state, etc.
+
+- Example 2:
+School vouchers are associated with improved academic performance after controlling (adjusting) for the “effects” of income, state, etc.
+
+## Effect of outliers:{-}
+
+Open the 'Florida_houses.csv' dataset. 
+
+Fit a linear model to predict the price using 'Area' and 'Bedroom' variables.   
+If you look at the summary of your model, you'll see that the bedroom coefficient is negative.  
+If you look more carefully you'll also see that the coefficient is NOT statistically significant.  Here are are few things to ponder:
+Should we trust this p-value?
+What is the hypothesis being tested using this p-value?
+What other concerns that we may have?
+To answer some of these concerns, use the add-variable plot (from the 'car') package.  The command is avPlot( ).  We used this on last Friday to visualize what these coefficients really mean, i.e. adjusting.  
+What do you observe in your avPlot for bedrooms?  Do you see any unusual observations or outliers?  What can be done about the unusual observations?  Should we throw them away?  That doesn't seem right.  
+ 
+ 
+## A different look at $R^2$ {-}
+
+Definition
+
+<font size="6">
+\[R^2 =  \frac{\sum_{i=1}^n (y_i-\bar y)^2 - \sum_{i=1}^n (y_i-\hat y_i)^2} {\sum_{i=1}^n(y_i-\bar y)^2 }\]
+</font> 
+
+where y-bar is the predicted value from the “trivial” model (with no X variables) : 
+
+y ~ just the intercept
+
+and yi is the predicted value from a non-trivial model: 
+
+\[ y \sim \ intercept + b_1X_1 + b_2X_2 + \ldots + b_kX_k \]
+
+The denominator is the total prediction error using the trivial model and the numerator is total prediction error using a non-trivial model. 
+
+In other words:
+
+<font size="4">
+\[R^2  = \frac{worst\ case\ -\ improved}{worst\ case} \]
+</font> 
+
+
+e.g. model 1 : 
+
+Worst case = 1200
+Improved    =   800
+Absolute improvement = 400
+
+model 2 : 
+
+Worst case = 500
+Improved    = 100
+Absolute improvement = 400
+
+How to compare?
+Model 1 : (1200 - 800)1200  = 33.33%
+
+Model 2 : (500 - 100)500   = 80%
+
+
+R2 of a model (with one or more predictors, i.e. X variables) can be thought of as a percentage improvement of the total prediction error relative to the worst case model with no predictors.
+
+
+## Categorical Predictors {-}
+
+What does it mean to have a categorical variable in a regression model?
+
+e.g. 
+
+Salary = intercept + Education + race
+
+## Ineraction Terms
+
+Income ~ Age + Edu + Edu*Age
+
+
+```{r}
+plot(NULL, 
+     ylab = 'Income (in $1000s)', 
+     xlab = 'Age', 
+     xlim = c(20,60), 
+     ylim =c(20,100),
+     )
+
+segments( 20,20, 60,26, col = 'yellow')
+segments( 20,30, 60,55, col = 'green')
+segments( 20,35, 60,70, col = 'blue')
+segments( 20,40, 60,100, col = 'red')
+
+
+```
+
+Effect of age is positive at all levels of education but the effectiveness is different depending on your education level.  For low level it is small, for higher education bracket it is much large.  This is the essence of 'interaction terms' or what I like to call 'effect modifiers' buecause the effect of education on income is 'modified' by another variable, age in this case.
+
+
+## Partial F-test
+
+```{r}
+set.seed(1234)
+n <- 30
+x1 <- runif(n)
+x2 <- runif(n)
+x3 <- runif(n)
+y <- 1 + 2*x1 + 3*x2 + 5*x3 + rnorm(n)
+
+model1 <- lm(y ~ x1 + x2)
+summary(model1)
+confint(model1)
+
+model2 <- lm(y ~ x1 + x2 + x3)
+summary(model2)
+confint(model2)
+
+# Compare the two models using partial F-test
+anova(model1, model2)
+```
+
+
+\[F_{Change} = \frac{(N-k_2 - 1)R^2_{Change}}{k_{Change}(1-R^2_2)}\]
+
+where  $R^2_2$ is the $R^2$ value of the larger model and $k_2$ is the corresponding number of variables in that model.
+
+
+##  Some questions to ponder about the multiple regression model: {-}
+
+1. Why use a multiple regression model? 
+
+2. Why, sometimes we shift our X variables?
+
+3. Why didn't the regression coefficients change (except the intercept) when we shift or X variables?
+
+4. What is the purpose of using the avPlot?
+
+5. What is purpose of introducing categorical variables in to the model?
+
+6. What is an effect modifier?
+
+7. What is point of the ice cream example?
+
+
+## Constraints of the Typical Regression Model: {-}
+From a regression textbook - please find the reference.
+
+The constraints typically imposed and the information often brought to bear from outside should now be familiar. 
+
+1. The concern is with the conditional means of y . 
+
+2. The goal is to characterize the path of the means with a hyperplane. 
+
+3.The least squares criterion is applied,which imposes symmetry on the errors and places special weight on the largest departures from the regression line. 
+
+4. For statistical inference,we assume  that the data were produced by random sampling, by a natural approximation thereof from a well-defined population, or through a well-understood data generation process accurately characterized by a model. 
+
+5. We assume that the natural world constructed the data in the population so that a hyperplane passes through each of the conditional means. Alternatively, the process by which the data were generated produces errors that are uncorrelated with the terms in the model. 
+6. In either case, the errors are independent of one another. 
+
+7.We require that the natural world forces all of the conditional variances Var (y | x ) to be the same. 
+
+8. We require no systematic measurement error for any of the variables and no random measurement error for x . 
+9. In some instances,we require that y | x be normally distributed. 
+
+10. We impose the thought experiment of a limitless number of independent samples from the given population or a limitless number of independent realizations of the data generation process.
+
